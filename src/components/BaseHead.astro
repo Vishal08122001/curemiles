@@ -3,6 +3,7 @@
 // all pages through the use of the <BaseHead /> component.
 import '../styles/global.css';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+import CookieConsent from './CookieConsent.astro';
 
 interface Props {
 	title: string;
@@ -122,3 +123,5 @@ const seoImage = new URL(image, Astro.site);
 
 		gtag('config', 'G-CJZD10VZT1');
 		</script>
+
+<CookieConsent />

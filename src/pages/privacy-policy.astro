@@ -1,0 +1,200 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { SITE_TITLE } from '../consts';
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={`Privacy Policy | ${SITE_TITLE}`} description="Privacy Policy and Cookie Usage Information" />
+	</head>
+	<body>
+		<Header />
+		<main class="privacy-policy">
+			<div class="container">
+				<h1>Privacy Policy</h1>
+            <p class="last-updated">Last updated: {new Date().toLocaleDateString()}</p>
+
+            <section>
+                <h2>Introduction</h2>
+                <p>
+                    At CureMiles, we are committed to protecting your privacy and ensuring the security of your personal information.
+                    This Privacy Policy explains how we collect, use, and safeguard your data when you use our website and services.
+                </p>
+            </section>
+
+            <section>
+                <h2>Information We Collect</h2>
+                <p>We collect information that you provide directly to us, including:</p>
+                <ul>
+                    <li>Contact information (name, email, phone number)</li>
+                    <li>Medical history and treatment preferences</li>
+                    <li>Travel preferences and requirements</li>
+                    <li>Communication history with our team</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2>Cookie Policy</h2>
+                <p>
+                    We use cookies and similar tracking technologies to enhance your browsing experience and provide personalized services.
+                    Our cookies fall into the following categories:
+                </p>
+
+                <h3>Essential Cookies</h3>
+                <p>
+                    These cookies are necessary for the website to function properly. They enable basic functions like page navigation
+                    and access to secure areas of the website. The website cannot function properly without these cookies.
+                </p>
+
+                <h3>Analytics Cookies</h3>
+                <p>
+                    We use analytics cookies to understand how visitors interact with our website. These cookies help us analyze
+                    and improve our website performance and user experience. The information is collected anonymously.
+                </p>
+
+                <h3>Marketing Cookies</h3>
+                <p>
+                    Marketing cookies are used to track visitors across websites. The intention is to display ads that are relevant
+                    and engaging for individual users. These cookies can only be set with your explicit consent.
+                </p>
+            </section>
+
+            <section>
+                <h2>How We Use Your Information</h2>
+                <p>We use the collected information for:</p>
+                <ul>
+                    <li>Facilitating your medical tourism arrangements</li>
+                    <li>Communicating with healthcare providers</li>
+                    <li>Improving our services</li>
+                    <li>Personalizing your experience</li>
+                    <li>Sending relevant updates and marketing communications (with your consent)</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2>Data Protection</h2>
+                <p>
+                    We implement appropriate security measures to protect your personal information against unauthorized access,
+                    alteration, disclosure, or destruction. Your data is encrypted and stored securely.
+                </p>
+            </section>
+
+            <section>
+                <h2>Your Rights</h2>
+                <p>You have the right to:</p>
+                <ul>
+                    <li>Access your personal data</li>
+                    <li>Correct inaccurate data</li>
+                    <li>Request deletion of your data</li>
+                    <li>Withdraw your consent</li>
+                    <li>Object to processing of your data</li>
+                    <li>Request data portability</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2>Contact Us</h2>
+                <p>
+                    If you have any questions about this Privacy Policy or our data practices, please contact us at:
+                </p>
+                <div class="contact-info">
+                    <!-- <p>Email: privacy@curemiles.com</p> -->
+                    <p>Phone: +91 8076929271</p>
+                    <p>Address: Delhi NCR INDIA</p>
+                </div>            </section>
+        </div>
+    </main>
+    <Footer />
+</body>
+</html>
+
+<style>
+    .privacy-policy {
+        padding: 2rem 0;
+        color: var(--text);
+    }
+
+    .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 0 1rem;
+    }
+
+    h1 {
+        font-size: 2.5rem;
+        margin-bottom: 0.5rem;
+        color: var(--heading);
+    }
+
+    .last-updated {
+        color: var(--text-muted);
+        margin-bottom: 2rem;
+        font-style: italic;
+    }
+
+    section {
+        margin-bottom: 2.5rem;
+    }
+
+    h2 {
+        font-size: 1.75rem;
+        margin-bottom: 1rem;
+        color: var(--heading);
+    }
+
+    h3 {
+        font-size: 1.25rem;
+        margin: 1.5rem 0 0.75rem;
+        color: var(--heading);
+    }
+
+    p {
+        line-height: 1.6;
+        margin-bottom: 1rem;
+    }
+
+    ul {
+        margin: 0.5rem 0 1rem 1.5rem;
+    }
+
+    li {
+        margin-bottom: 0.5rem;
+        line-height: 1.6;
+    }
+
+    .contact-info {
+        background: var(--card-bg);
+        padding: 1.5rem;
+        border-radius: var(--radius);
+        margin-top: 1rem;
+    }
+
+    .contact-info p {
+        margin-bottom: 0.5rem;
+    }
+
+    .contact-info p:last-child {
+        margin-bottom: 0;
+    }
+
+    @media (max-width: 768px) {
+        .privacy-policy {
+            padding: 1rem 0;
+        }
+
+        h1 {
+            font-size: 2rem;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+        }
+
+        h3 {
+            font-size: 1.2rem;
+        }
+    }
+</style>
