@@ -5,14 +5,17 @@ function formatDate(date: Date): string {
     return date.toISOString().split('T')[0];
 }
 
+function escapeXml(unsafe: string): string {
+    return unsafe
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&apos;');
+}
+
 function generateUrlEntry(url: string, lastmod: Date, priority: number, changefreq: string) {
-    return `
-        <url>
-            <loc>${url}</loc>
-            <lastmod>${formatDate(lastmod)}</lastmod>
-            <changefreq>${changefreq}</changefreq>
-            <priority>${priority}</priority>
-        </url>`;
+    return `<url><loc>${escapeXml(url)}</loc><lastmod>${formatDate(lastmod)}</lastmod><changefreq>${changefreq}</changefreq><priority>${priority}</priority></url>\n`;
 }
 
 export async function GET({ site }) {
@@ -63,6 +66,14 @@ export async function GET({ site }) {
         );
     }
 
+    // Add privacy policy page
+    sitemap += generateUrlEntry(
+        new URL('privacy-policy', site).toString(),
+        now,
+        0.5,
+        'yearly'
+    );
+
     // Add blog posts
     for (const post of posts) {
         const url = new URL(`blog/${post.id}`, site).toString();
@@ -70,7 +81,7 @@ export async function GET({ site }) {
         sitemap += generateUrlEntry(url, lastmod, 0.7, 'monthly');
     }
 
-    sitemap += '\n</urlset>';
+    sitemap += '</urlset>';
 
     return new Response(sitemap, {
         headers: {
