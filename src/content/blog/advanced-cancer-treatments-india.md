@@ -1,7 +1,7 @@
 ---
 title: "Advanced Cancer Treatments in India: World-Class Care at Affordable Costs"
 pubDate: 2024-01-15
-heroImage: /uploads/designer-1-.png
+heroImage: /uploads/istockphoto-1175131167-2048x2048.jpg
 description: Discover how India's leading cancer hospitals offer cutting-edge
   treatments including immunotherapy, targeted therapy, and robotic surgery at a
   fraction of international costs.
