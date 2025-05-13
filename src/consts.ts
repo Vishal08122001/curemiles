@@ -1,7 +1,7 @@
 // Place any global data in this file.
 // You can import this data from anywhere in your site by using the `import` keyword.
 
-export const SITE_TITLE = 'CureMiles - Medical Tourism in India';
+export const SITE_TITLE = 'NirogYatra - Medical Tourism in India';
 export const SITE_DESCRIPTION = 'Leading medical tourism facilitator in India. Get world-class cancer treatment, cardiac care, and wellness packages at 60-80% lower costs. Trusted by 50,000+ international patients from Africa, Middle East, and Southeast Asia.';
 
 export const SITE_KEYWORDS = [
@@ -20,15 +20,15 @@ export const SITE_KEYWORDS = [
 export const CONTACT_INFO = {
   phone: '+91-8076929271',
   whatsapp: '+91-8076929271',
-  email: 'care@curemiles.com',
+  email: 'care@nirogyatra.com',
   address: 'Delhi NCR, India'
 };
 
 export const SOCIAL_LINKS = {
-  facebook: 'https://facebook.com/curemiles',
-  twitter: 'https://twitter.com/curemiles',
-  linkedin: 'https://linkedin.com/company/curemiles',
-  youtube: 'https://youtube.com/curemiles'
+  facebook: 'https://facebook.com/nirogyatra',
+  twitter: 'https://twitter.com/nirogyatra',
+  linkedin: 'https://linkedin.com/company/nirogyatra',
+  youtube: 'https://youtube.com/nirogyatra'
 };
 
 // Treatment categories for navigation and filtering

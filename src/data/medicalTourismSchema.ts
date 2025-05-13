@@ -3,11 +3,11 @@ import { SITE_TITLE } from '../consts';
 export const generateMedicalTourismSchema = (data?: any) => ({
     "@context": "https://schema.org",
     "@type": "MedicalBusiness",
-    "@id": "https://curemiles.com",
+    "@id": "https://nirogyatra.com",
     "name": SITE_TITLE,
-    "url": "https://curemiles.com",
-    "logo": "https://curemiles.com/favicon.svg",
-    "image": "https://curemiles.com/images/hospital-front.jpg",
+    "url": "https://nirogyatra.com",
+    "logo": "https://nirogyatra.com/favicon.svg",
+    "image": "https://nirogyatra.com/images/hospital-front.jpg",
     "description": "Leading medical tourism facilitator in India offering affordable cancer treatment, cardiac surgery, and wellness packages for international patients.",
     "medicalSpecialty": [
         "Oncology",
@@ -42,7 +42,7 @@ export const generateMedicalTourismSchema = (data?: any) => ({
         "longitude": "77.2090"
     },
     "telephone": "+91-XXXXXXXXXX",
-    "email": "care@curemiles.com",
+    "email": "care@nirogyatra.com",
     "priceRange": "$$",
     "openingHours": "Mo-Su 00:00-24:00",
     "languages": ["English", "Hindi", "Arabic"],

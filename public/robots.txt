@@ -38,6 +38,6 @@ Allow: *.webp
 Crawl-delay: 10
 
 # XML Sitemaps
-Sitemap: https://curemiles.com/sitemap-index.xml
-Sitemap: https://curemiles.com/blog-sitemap.xml
-Sitemap: https://curemiles.com/treatments-sitemap.xml
+Sitemap: https://nirogyatra.com/sitemap-index.xml
+Sitemap: https://nirogyatra.com/blog-sitemap.xml
+Sitemap: https://nirogyatra.com/treatments-sitemap.xml
