@@ -19,7 +19,7 @@ export const SITE_KEYWORDS = [
 
 export const CONTACT_INFO = {
   phone: '+91-8076929271',
-  whatsapp: '+91-XXXXXXXXXX',
+  whatsapp: '+91-8076929271',
   email: 'care@curemiles.com',
   address: 'Delhi NCR, India'
 };
@@ -69,4 +69,22 @@ export const TARGET_REGIONS = [
     id: 'southeast-asia',
     countries: ['Indonesia', 'Malaysia', 'Myanmar', 'Bangladesh']
   }
+];
+
+export const MEDICAL_SPECIALTIES = [
+  'Cancer Treatment',
+  'Cardiac Surgery',
+  'Orthopedic Surgery',
+  'Neurosurgery',
+  'Spine Surgery',
+  'Organ Transplant',
+  'IVF & Fertility',
+  'Bariatric Surgery',
+  'Dental Treatment',
+  'Ayurvedic Treatment',
+  'Cosmetic Surgery',
+  'Joint Replacement',
+  'Kidney Treatment',
+  'Eye Surgery',
+  'Wellness Packages'
 ];
