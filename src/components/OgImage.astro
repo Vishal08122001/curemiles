@@ -1,0 +1,69 @@
+---
+import { SITE_TITLE } from '../consts';
+
+export const prerender = false;
+
+const { title, description } = Astro.props;
+
+// Generate dynamic OpenGraph image
+---
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      width: 1200px;
+      height: 630px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+      background: linear-gradient(135deg, #3B82F6, #2563EB);
+      color: white;
+    }
+    
+    .container {
+      width: 1000px;
+      padding: 60px;
+    }
+    
+    .logo {
+      margin-bottom: 40px;
+      font-size: 24px;
+      font-weight: 700;
+    }
+    
+    h1 {
+      font-size: 64px;
+      line-height: 1.2;
+      margin: 0 0 24px 0;
+    }
+    
+    p {
+      font-size: 32px;
+      opacity: 0.9;
+      margin: 0;
+    }
+    
+    .overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 100px;
+      background: linear-gradient(to top, rgba(0,0,0,0.2), transparent);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="logo">{SITE_TITLE}</div>
+    <h1>{title}</h1>
+    <p>{description}</p>
+  </div>
+  <div class="overlay"></div>
+</body>
+</html>

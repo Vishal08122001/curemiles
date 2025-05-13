@@ -3,47 +3,292 @@ import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+import { getCollection } from 'astro:content';
+import FormattedDate from '../components/FormattedDate.astro';
+
+const posts = (await getCollection('blog')).sort(
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+).slice(0, 3);
 ---
 
 <!doctype html>
 <html lang="en">
 	<head>
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+		<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 	</head>
 	<body>
 		<Header />
+		
 		<main>
-			<h1>🧑‍🚀 Hello, Astronaut!</h1>
-			<p>
-				Welcome to the official <a href="https://astro.build/">Astro</a> blog starter template. This
-				template serves as a lightweight, minimally-styled starting point for anyone looking to build
-				a personal website, blog, or portfolio with Astro.
-			</p>
-			<p>
-				This template comes with a few integrations already configured in your
-				<code>astro.config.mjs</code> file. You can customize your setup with
-				<a href="https://astro.build/integrations">Astro Integrations</a> to add tools like Tailwind,
-				React, or Vue to your project.
-			</p>
-			<p>Here are a few ideas on how to get started with the template:</p>
-			<ul>
-				<li>Edit this page in <code>src/pages/index.astro</code></li>
-				<li>Edit the site header items in <code>src/components/Header.astro</code></li>
-				<li>Add your name to the footer in <code>src/components/Footer.astro</code></li>
-				<li>Check out the included blog posts in <code>src/content/blog/</code></li>
-				<li>Customize the blog post page layout in <code>src/layouts/BlogPost.astro</code></li>
-			</ul>
-			<p>
-				Have fun! If you get stuck, remember to
-				<a href="https://docs.astro.build/">read the docs</a>
-				or <a href="https://astro.build/chat">join us on Discord</a> to ask questions.
-			</p>
-			<p>
-				Looking for a blog template with a bit more personality? Check out
-				<a href="https://github.com/Charca/astro-blog-template">astro-blog-template</a>
-				by <a href="https://twitter.com/Charca">Maxi Ferreira</a>.
-			</p>
+			<!-- Hero Section -->
+			<section class="hero">
+				<div class="container hero-container">
+					<div class="hero-content">
+						<h1>Transform Your Health Journey</h1>
+						<p>Explore expert blogs on medical tourism in India, covering cancer treatment, cardiac care, and wellness packages. Designed for international patients from Africa, the Middle East, and Southeast Asia looking for trusted, affordable healthcare options.</p>
+						<div class="hero-buttons">
+							<a href="/blog" class="btn btn-primary">
+								Explore Articles
+								<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+									<path d="M5 12h14M12 5l7 7-7 7"/>
+								</svg>
+							</a>
+							<a href="/about" class="btn btn-outline">Learn More</a>
+						</div>
+					</div>
+					<div class="hero-image">
+						<div class="gradient-circle"></div>
+						<svg width="400" height="400" viewBox="0 0 400 400" fill="none">
+							<path d="M200 40L40 120L200 200L360 120L200 40Z" fill="var(--primary)"/>
+							<path d="M40 200L200 280L360 200" stroke="var(--accent)" stroke-width="4"/>
+							<path d="M40 280L200 360L360 280" stroke="var(--secondary)" stroke-width="4"/>
+						</svg>
+					</div>
+				</div>
+			</section>
+
+			<!-- Featured Posts -->
+			<section class="featured">
+				<div class="container">
+					<h2>Latest Insights</h2>
+					<div class="grid">
+						{posts.map(post => (
+							<article class="post-card">
+								<a href={`/blog/${post.id}/`}>
+									<img src={post.data.heroImage || '/blog-placeholder-1.jpg'} alt={post.data.title} />
+									<div class="post-content">
+										<time datetime={post.data.pubDate.toISOString()}>
+											<FormattedDate date={post.data.pubDate} />
+										</time>
+										<h3>{post.data.title}</h3>
+										<p>{post.data.description}</p>
+										<span class="read-more">
+											Read More
+											<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+												<path d="M5 12h14M12 5l7 7-7 7"/>
+											</svg>
+										</span>
+									</div>
+								</a>
+							</article>
+						))}
+					</div>
+				</div>
+			</section>
+
+			<!-- Features Section -->
+			<section class="features">
+				<div class="container">
+					<h2>Why Choose Us</h2>
+					<div class="features-grid">
+						<div class="feature-card">
+							<div class="icon">💡</div>
+							<h3>Expert Insights</h3>
+							<p>Cutting-edge analysis and actionable strategies from industry experts.</p>
+						</div>
+						<div class="feature-card">
+							<div class="icon">📈</div>
+							<h3>Growth Focused</h3>
+							<p>Data-driven approaches to accelerate your business growth.</p>
+						</div>
+						<div class="feature-card">
+							<div class="icon">🚀</div>
+							<h3>Innovation First</h3>
+							<p>Stay ahead with the latest digital trends and technologies.</p>
+						</div>
+					</div>
+				</div>
+			</section>
 		</main>
+
 		<Footer />
+		
+		<style>
+			.hero {
+				padding: 4rem 0;
+				background: linear-gradient(to bottom right, var(--bg), var(--card-bg));
+				position: relative;
+				overflow: hidden;
+			}
+
+			.hero-container {
+				display: grid;
+				grid-template-columns: 1fr 1fr;
+				gap: 4rem;
+				align-items: center;
+			}
+
+			.hero-content h1 {
+				font-size: 3.5rem;
+				line-height: 1.1;
+				margin-bottom: 1.5rem;
+				background: linear-gradient(135deg, var(--text) 0%, var(--primary) 100%);
+				-webkit-background-clip: text;
+				-webkit-text-fill-color: transparent;
+			}
+
+			.hero-content p {
+				font-size: 1.25rem;
+				color: var(--text-muted);
+				margin-bottom: 2rem;
+			}
+
+			.hero-buttons {
+				display: flex;
+				gap: 1rem;
+			}
+
+			.btn-outline {
+				border: 2px solid var(--border);
+				background: transparent;
+				color: var(--text);
+			}
+
+			.btn-outline:hover {
+				border-color: var(--primary);
+				color: var(--primary);
+			}
+
+			.hero-image {
+				position: relative;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			}
+
+			.gradient-circle {
+				position: absolute;
+				width: 500px;
+				height: 500px;
+				background: radial-gradient(
+					circle,
+					var(--primary) 0%,
+					transparent 70%
+				);
+				opacity: 0.1;
+				border-radius: 50%;
+			}
+
+			.featured {
+				padding: 4rem 0;
+			}
+
+			.featured h2 {
+				text-align: center;
+				margin-bottom: 3rem;
+				font-size: 2.5rem;
+			}
+
+			.post-card {
+				background: var(--card-bg);
+				border-radius: var(--radius);
+				overflow: hidden;
+				transition: var(--transition);
+				border: 1px solid var(--border);
+			}
+
+			.post-card:hover {
+				transform: translateY(-5px);
+				box-shadow: var(--shadow-lg);
+			}
+
+			.post-card img {
+				width: 100%;
+				height: 200px;
+				object-fit: cover;
+			}
+
+			.post-content {
+				padding: 1.5rem;
+			}
+
+			.post-content time {
+				color: var(--text-muted);
+				font-size: 0.9rem;
+			}
+
+			.post-content h3 {
+				margin: 0.5rem 0;
+				font-size: 1.5rem;
+			}
+
+			.read-more {
+				display: inline-flex;
+				align-items: center;
+				gap: 0.5rem;
+				color: var(--primary);
+				margin-top: 1rem;
+				font-weight: 600;
+			}
+
+			.features {
+				padding: 4rem 0;
+				background: var(--card-bg);
+			}
+
+			.features h2 {
+				text-align: center;
+				margin-bottom: 3rem;
+				font-size: 2.5rem;
+			}
+
+			.features-grid {
+				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+				gap: 2rem;
+			}
+
+			.feature-card {
+				text-align: center;
+				padding: 2rem;
+				background: var(--bg);
+				border-radius: var(--radius);
+				transition: var(--transition);
+			}
+
+			.feature-card:hover {
+				transform: translateY(-5px);
+			}
+
+			.feature-card .icon {
+				font-size: 2.5rem;
+				margin-bottom: 1rem;
+			}
+
+			.feature-card h3 {
+				margin-bottom: 0.5rem;
+			}
+
+			@media (max-width: 768px) {
+				.hero-container {
+					grid-template-columns: 1fr;
+					text-align: center;
+					gap: 2rem;
+				}
+
+				.hero-content h1 {
+					font-size: 2.5rem;
+				}
+
+				.hero-buttons {
+					justify-content: center;
+				}
+
+				.hero-image {
+					order: -1;
+				}
+
+				.hero-image svg {
+					width: 300px;
+					height: 300px;
+				}
+
+				.gradient-circle {
+					width: 300px;
+					height: 300px;
+				}
+			}
+		</style>
 	</body>
 </html>
