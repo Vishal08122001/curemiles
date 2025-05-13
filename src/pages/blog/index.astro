@@ -67,22 +67,8 @@ const years = Object.keys(postsByYear).sort((a, b) => Number(b) - Number(a));
 				</div>
 			</div>
 
-			<div class="container">
+			<div class="container posts-container grid-view" id="posts-container">
 				<div class="filters">
-					<div class="categories">
-						<button class="filter-btn active" data-category="all"
-							>All Posts</button
-						>
-						<button class="filter-btn" data-category="strategy"
-							>Strategy</button
-						>
-						<button class="filter-btn" data-category="technology"
-							>Technology</button
-						>
-						<button class="filter-btn" data-category="insights"
-							>Insights</button
-						>
-					</div>
 					<div class="view-toggle">
 						<button class="view-btn active" data-view="grid">
 							<svg
@@ -232,9 +218,17 @@ const years = Object.keys(postsByYear).sort((a, b) => Number(b) - Number(a));
 			</div>
 
 			<div class="lead-form-container">
-				<form name="medical-lead" method="POST" data-netlify="true" class="medical-lead-form">
+				<form
+					name="medical-lead"
+					method="POST"
+					data-netlify="true"
+					class="medical-lead-form"
+				>
 					<h3>Get a Free Treatment Cost Estimate</h3>
-					<p class="form-description">Fill out this form and our medical experts will contact you with a detailed cost estimate.</p>
+					<p class="form-description">
+						Fill out this form and our medical experts will contact
+						you with a detailed cost estimate.
+					</p>
 
 					<div class="form-group">
 						<input
@@ -247,11 +241,11 @@ const years = Object.keys(postsByYear).sort((a, b) => Number(b) - Number(a));
 					</div>
 
 					<div class="form-group">
-						<input 
-							type="email" 
-							name="email" 
-							placeholder="Email" 
-							required 
+						<input
+							type="email"
+							name="email"
+							placeholder="Email"
+							required
 							class="form-input"
 						/>
 					</div>
@@ -272,13 +266,19 @@ const years = Object.keys(postsByYear).sort((a, b) => Number(b) - Number(a));
 							placeholder="Brief about your condition"
 							required
 							class="form-input form-textarea"
-							rows="4"
-						></textarea>
+							rows="4"></textarea>
 					</div>
 
 					<button type="submit" class="form-submit">
 						<span>Get Free Estimate</span>
-						<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+						<svg
+							width="20"
+							height="20"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="2"
+						>
 							<line x1="5" y1="12" x2="19" y2="12"></line>
 							<polyline points="12 5 19 12 12 19"></polyline>
 						</svg>
@@ -361,6 +361,33 @@ const years = Object.keys(postsByYear).sort((a, b) => Number(b) - Number(a));
 					}, 2000);
 				}
 			});
+
+			document.addEventListener("DOMContentLoaded", () => {
+				const viewButtons = document.querySelectorAll(".view-btn");
+				const postsContainer =
+					document.getElementById("posts-container");
+
+				viewButtons.forEach((btn) => {
+					btn.addEventListener("click", () => {
+						// Remove active class from all buttons
+						viewButtons.forEach((b) =>
+							b.classList.remove("active"),
+						);
+						btn.classList.add("active");
+
+						// Toggle container class
+						const view = btn.dataset.view;
+						postsContainer.classList.toggle(
+							"grid-view",
+							view === "grid",
+						);
+						postsContainer.classList.toggle(
+							"list-view",
+							view === "list",
+						);
+					});
+				});
+			});
 		</script>
 
 		<style>
@@ -416,6 +443,54 @@ const years = Object.keys(postsByYear).sort((a, b) => Number(b) - Number(a));
 				color: var(--text-muted);
 			}
 
+			.posts-container.grid-view .blog-grid {
+				display: grid;
+				grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+				gap: 2rem;
+			}
+
+			.posts-container.list-view .blog-grid {
+				display: flex;
+				flex-direction: column;
+				gap: 2rem;
+			}
+
+			.blog-card {
+				border: 1px solid #eee;
+				border-radius: 12px;
+				overflow: hidden;
+				background: #fff;
+				display: flex;
+				flex-direction: column;
+				transition: all 0.3s ease;
+			}
+
+			.posts-container.list-view .blog-card {
+				flex-direction: row;
+			}
+
+			.view-btn.active {
+				background-color: #000;
+				color: #fff;
+				border-radius: 8px;
+			}
+
+			.posts-container.list-view .blog-card .image-link {
+				flex-shrink: 0;
+				width: 240px;
+				height: auto;
+			}
+
+			.posts-container.list-view .blog-card img {
+				object-fit: cover;
+				width: 100%;
+				height: 100%;
+			}
+
+			.posts-container.list-view .blog-card .card-content {
+				padding: 1rem;
+			}
+
 			.search-box input {
 				width: 100%;
 				padding: 1rem 1rem 1rem 3rem;
@@ -435,7 +510,7 @@ const years = Object.keys(postsByYear).sort((a, b) => Number(b) - Number(a));
 
 			.filters {
 				display: flex;
-				justify-content: space-between;
+				justify-content: end;
 				align-items: center;
 				margin: 3rem 0 2rem;
 				gap: 1rem;
@@ -752,12 +827,15 @@ const years = Object.keys(postsByYear).sort((a, b) => Number(b) - Number(a));
 				transform: translateX(5px);
 			}
 
-
 			.medical-lead-form h3 {
 				font-size: 2rem;
 				text-align: center;
 				margin-bottom: 0.5rem;
-				background: linear-gradient(135deg, var(--primary), var(--accent));
+				background: linear-gradient(
+					135deg,
+					var(--primary),
+					var(--accent)
+				);
 				-webkit-background-clip: text;
 				background-clip: text;
 				-webkit-text-fill-color: transparent;
@@ -766,7 +844,7 @@ const years = Object.keys(postsByYear).sort((a, b) => Number(b) - Number(a));
 			@media (max-width: 768px) {
 				.filters {
 					flex-direction: column;
-					align-items: flex-start;
+					align-items: flex-end;
 				}
 
 				.list-view .blog-card {
