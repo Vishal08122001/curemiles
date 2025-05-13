@@ -89,6 +89,20 @@ const GTM_ID = 'GTM-CJZD10VZT1';
 
     // Update GTM consent state
     function updateGTMConsent(preferences) {
+        // Wait for gtag to be available
+        function doConsentUpdate() {
+            if (typeof window.gtag === 'function') {
+                window.gtag('consent', 'update', {
+                    'ad_storage': preferences.marketing ? 'granted' : 'denied',
+                    'analytics_storage': preferences.analytics ? 'granted' : 'denied',
+                    'functionality_storage': 'granted',
+                    'security_storage': 'granted'
+                });
+            } else {
+                setTimeout(doConsentUpdate, 100);
+            }
+        }
+        doConsentUpdate();
         if (window.dataLayer) {
             window.dataLayer.push({
                 event: 'updateConsent',
