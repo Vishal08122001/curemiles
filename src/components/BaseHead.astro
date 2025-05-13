@@ -5,26 +5,26 @@ import '../styles/global.css';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 import CookieConsent from './CookieConsent.astro';
 
-interface Props {
-	title: string;
-	description: string;
-	image?: string;
-	canonicalURL?: string;
-	type?: 'website' | 'article';
-	publishDate?: Date;
-	author?: string;
-	keywords?: string;
+export interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  canonicalURL?: string;
+  type?: 'website' | 'article';
+  publishDate?: Date;
+  author?: string;
+  keywords?: string;
 }
 
 const {
-	title,
-	description,
-	image = '/og-image.jpg',
-	canonicalURL = new URL(Astro.url.pathname, Astro.site),
-	type = 'website',
-	publishDate,
-	author = 'NirogYatra Team',
-	keywords = 'medical tourism, medical treatment in India, affordable healthcare, international patients, medical procedures'
+  title = SITE_TITLE,
+  description = SITE_DESCRIPTION,
+  image = '/og-image.jpg',
+  canonicalURL = new URL(Astro.url.pathname, Astro.site),
+  type = 'website',
+  publishDate,
+  author = 'NirogYatra Team',
+  keywords = 'medical tourism, medical treatment in India, affordable healthcare, international patients, medical procedures'
 } = Astro.props;
 
 // SEO Image URL
@@ -42,17 +42,15 @@ const seoImage = new URL(image, Astro.site);
 <link rel="alternate" type="application/rss+xml" title={SITE_TITLE} href={new URL('rss.xml', Astro.site)} />
 <meta name="generator" content={Astro.generator} />
 
-<!-- AdSense Verification -->
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_ADSENSE_ID"
-     crossorigin="anonymous"></script>
-
 <!-- Preconnect to required origins -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://pagead2.googlesyndication.com">
+<link rel="preconnect" href="https://www.googletagmanager.com">
 
 <!-- Font preloads -->
-<link rel="preload" href="/fonts/atkinson-regular.woff" as="font" type="font/woff" crossorigin />
-<link rel="preload" href="/fonts/atkinson-bold.woff" as="font" type="font/woff" crossorigin />
+<link rel="preload" href="/fonts/atkinson-regular.woff" as="font" type="font/woff" crossorigin fetchpriority="high" />
+<link rel="preload" href="/fonts/atkinson-bold.woff" as="font" type="font/woff" crossorigin fetchpriority="high" />
 
 <!-- Canonical URL -->
 <link rel="canonical" href={canonicalURL} />
@@ -93,25 +91,32 @@ const seoImage = new URL(image, Astro.site);
 <meta name="geo.position" content="20.5937;78.9629" />
 <meta name="ICBM" content="20.5937, 78.9629" />
 
+<!-- Content Security Policy -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.googletagmanager.com https://pagead2.googlesyndication.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self'; connect-src 'self' https://www.google-analytics.com; frame-src https://www.youtube.com;" />
+
+<!-- AdSense Verification -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_ACTUAL_ADSENSE_ID"
+     crossorigin="anonymous"></script>
+
 <!-- Schema.org markup -->
 <script type="application/ld+json">
-	{
-		"@context": "https://schema.org",
-		"@type": type === 'article' ? "Article" : "Organization",
-		"name": SITE_TITLE,
-		"url": Astro.site,
-		"logo": new URL("/favicon.svg", Astro.site),
-		"description": SITE_DESCRIPTION,
-		...(type === 'article' && {
-			"headline": title,
-			"image": seoImage,
-			"datePublished": publishDate,
-			"author": {
-				"@type": "Person",
-				"name": author
-			}
-		})
-	}
+  {
+    "@context": "https://schema.org",
+    "@type": type === 'article' ? "Article" : "Organization",
+    "name": SITE_TITLE,
+    "url": Astro.site,
+    "logo": new URL("/favicon.svg", Astro.site),
+    "description": SITE_DESCRIPTION,
+    ...(type === 'article' && {
+      "headline": title,
+      "image": seoImage,
+      ...(publishDate && { "datePublished": publishDate.toISOString() }),
+      "author": {
+        "@type": "Person",
+        "name": author
+      }
+    })
+  }
 </script>
 
 <!-- Google Consent Mode v2 and GTM Initialization -->
