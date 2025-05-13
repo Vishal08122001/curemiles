@@ -1,8 +1,10 @@
 ---
 title: "Patient Journey: Cancer Treatment Experience in India"
-description: "A detailed look at what international patients can expect when seeking cancer treatment in India, from arrival to recovery and follow-up care."
 pubDate: 2024-01-16
-heroImage: "/blog-placeholder-4.jpg"
+heroImage: /uploads/hospital-1802679_1280.jpg
+description: A detailed look at what international patients can expect when
+  seeking cancer treatment in India, from arrival to recovery and follow-up
+  care.
 ---
 
 For international patients considering cancer treatment in India, understanding the complete treatment journey is crucial for making an informed decision. This comprehensive guide walks you through the entire process, from initial consultation to post-treatment care.
