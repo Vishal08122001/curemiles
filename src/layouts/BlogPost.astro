@@ -5,6 +5,7 @@ import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import FormattedDate from "../components/FormattedDate.astro";
 import AdSense from "../components/AdSense.astro";
+import TreatmentCostForm from "../components/TreatmentCostForm.astro";
 import { SITE_TITLE } from "../consts";
 
 type Props = CollectionEntry<"blog">["data"];
@@ -313,62 +314,11 @@ const medicalServiceSchema = {
 			</article>
 
 			<!-- Bottom of page ad -->
-			<AdSense adSlot="1357924680" adFormat="rectangle" />
-
-			<div class="lead-form-container">
-				<form name="medical-lead" method="POST" data-netlify="true" class="medical-lead-form">
-					<h3>Get a Free Treatment Cost Estimate</h3>
-					<p class="form-description">Fill out this form and our medical experts will contact you with a detailed cost estimate.</p>
-
-					<div class="form-group">
-						<input
-							type="text"
-							name="name"
-							placeholder="Full Name"
-							required
-							class="form-input"
-						/>
-					</div>
-
-					<div class="form-group">
-						<input 
-							type="email" 
-							name="email" 
-							placeholder="Email" 
-							required 
-							class="form-input"
-						/>
-					</div>
-
-					<div class="form-group">
-						<input
-							type="text"
-							name="country"
-							placeholder="Country"
-							required
-							class="form-input"
-						/>
-					</div>
-
-					<div class="form-group">
-						<textarea
-							name="condition"
-							placeholder="Brief about your condition"
-							required
-							class="form-input form-textarea"
-							rows="4"
-						></textarea>
-					</div>
-
-					<button type="submit" class="form-submit">
-						<span>Get Free Estimate</span>
-						<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-							<line x1="5" y1="12" x2="19" y2="12"></line>
-							<polyline points="12 5 19 12 12 19"></polyline>
-						</svg>
-					</button>
-				</form>
-			</div>
+			<AdSense adSlot="1357924680" adFormat="rectangle" />			
+			<TreatmentCostForm 
+				formName="blog-lead" 
+				className="blog-form"
+			/>
 		</main>
 		<Footer />
 		<script>

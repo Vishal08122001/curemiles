@@ -3,6 +3,7 @@ import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import FAQ from '../components/FAQ.astro';
+import TreatmentCostForm from '../components/TreatmentCostForm.astro';
 import { SITE_TITLE } from '../consts';
 
 const treatments = [
@@ -187,48 +188,12 @@ const costSchema = {
                         answer: "Yes, we partner with several financial institutions to offer medical loans and flexible payment plans for international patients. Our team can help you explore the best financing options."
                     }
                 ]}
+            />            <TreatmentCostForm 
+                formName="cost-estimate" 
+                className="cost-form"
+                title="Get Personalized Cost Estimate"
+                description="Share your medical reports for an accurate treatment cost estimate within 24 hours."
             />
-
-            <div class="lead-form-container">
-                <form name="cost-estimate" method="POST" data-netlify="true" class="medical-lead-form">
-                    <h3>Get Personalized Cost Estimate</h3>
-                    <p class="form-description">Share your medical reports for an accurate treatment cost estimate within 24 hours.</p>
-
-                    <div class="form-group">
-                        <input type="text" name="name" placeholder="Full Name" required class="form-input" />
-                    </div>
-
-                    <div class="form-group">
-                        <input type="email" name="email" placeholder="Email" required class="form-input" />
-                    </div>
-
-                    <div class="form-group">
-                        <input type="tel" name="phone" placeholder="Phone (with country code)" required class="form-input" />
-                    </div>
-
-                    <div class="form-group">
-                        <select name="treatment" required class="form-input">
-                            <option value="">Select Treatment</option>
-                            <option value="cancer">Cancer Treatment</option>
-                            <option value="cardiac">Cardiac Surgery</option>
-                            <option value="orthopedic">Orthopedic Surgery</option>
-                            <option value="other">Other Treatment</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <textarea name="message" placeholder="Brief about your medical condition" required class="form-input form-textarea" rows="4"></textarea>
-                    </div>
-
-                    <button type="submit" class="form-submit">
-                        <span>Request Cost Estimate</span>
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <line x1="5" y1="12" x2="19" y2="12"></line>
-                            <polyline points="12 5 19 12 12 19"></polyline>
-                        </svg>
-                    </button>
-                </form>
-            </div>
         </main>
         <Footer />
 

@@ -3,6 +3,7 @@ import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import AdSense from '../components/AdSense.astro';
+import TreatmentCostForm from '../components/TreatmentCostForm.astro';
 import { SITE_TITLE } from '../consts';
 
 const hospitals = [
@@ -78,7 +79,7 @@ const hospitalSchema = {
                 </div>
             </section>
 
-            <AdSense adSlot="hospital-page-top" adFormat="responsive" />
+            <AdSense adSlot="hospital-page-top" adFormat="fluid" />
 
             <section class="hospitals">
                 <div class="container">
@@ -147,42 +148,12 @@ const hospitalSchema = {
                 </div>
             </section>
 
-            <AdSense adSlot="hospital-page-bottom" adFormat="responsive" />
-
-            <div class="lead-form-container">
-                <form name="hospital-enquiry" method="POST" data-netlify="true" class="medical-lead-form">
-                    <h3>Get Free Hospital Consultation</h3>
-                    <p>Our medical experts will help you choose the right hospital for your treatment</p>
-
-                    <div class="form-group">
-                        <input type="text" name="name" placeholder="Full Name" required />
-                    </div>
-
-                    <div class="form-group">
-                        <input type="email" name="email" placeholder="Email Address" required />
-                    </div>
-
-                    <div class="form-group">
-                        <input type="tel" name="phone" placeholder="Phone (with country code)" required />
-                    </div>
-
-                    <div class="form-group">
-                        <select name="treatment" required>
-                            <option value="">Select Treatment</option>
-                            <option value="cancer">Cancer Treatment</option>
-                            <option value="cardiac">Cardiac Surgery</option>
-                            <option value="orthopedic">Orthopedic Surgery</option>
-                            <option value="other">Other Treatment</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <textarea name="message" placeholder="Tell us about your medical condition" rows="4" required></textarea>
-                    </div>
-
-                    <button type="submit">Get Hospital Recommendations</button>
-                </form>
-            </div>
+            <AdSense adSlot="hospital-page-bottom" adFormat="fluid" />            <TreatmentCostForm 
+                formName="hospital-enquiry" 
+                className="hospital-form"
+                title="Get Free Hospital Consultation"
+                description="Our medical experts will help you choose the right hospital for your treatment"
+            />
         </main>
         <Footer />
 

@@ -3,6 +3,7 @@ import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import AdSense from '../components/AdSense.astro';
+import TreatmentCostForm from '../components/TreatmentCostForm.astro';
 
 const treatments = {
     cancer: {
@@ -197,39 +198,17 @@ const treatmentSchema = {
                 </div>
             </section>
 
-            <AdSense adSlot="treatment-page-bottom" adFormat="responsive" />
-
-            <section class="cta-section">
+            <AdSense adSlot="treatment-page-bottom" adFormat="responsive" />            <section class="cta-section">
                 <div class="container">
                     <div class="cta-content">
                         <h2>Need Help Choosing the Right Treatment?</h2>
                         <p>Our medical experts will help you understand your options and recommend the best treatment plan.</p>
-                        
-                        <form name="treatment-consultation" method="POST" data-netlify="true" class="consultation-form">
-                            <div class="form-group">
-                                <input type="text" name="name" placeholder="Full Name" required class="form-input" />
-                            </div>
-
-                            <div class="form-group">
-                                <input type="email" name="email" placeholder="Email Address" required class="form-input" />
-                            </div>
-
-                            <div class="form-group">
-                                <input type="tel" name="phone" placeholder="Phone (with country code)" required class="form-input" />
-                            </div>
-
-                            <div class="form-group">
-                                <textarea name="message" placeholder="Tell us about your medical condition" required class="form-input form-textarea" rows="4"></textarea>
-                            </div>
-
-                            <button type="submit" class="submit-button">
-                                <span>Get Expert Advice</span>
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <line x1="5" y1="12" x2="19" y2="12"></line>
-                                    <polyline points="12 5 19 12 12 19"></polyline>
-                                </svg>
-                            </button>
-                        </form>
+                        <TreatmentCostForm 
+                            formName="treatment-consultation" 
+                            className="treatment-form"
+                            title="Get Expert Treatment Advice"
+                            description="Our medical experts will help you understand your options and recommend the best treatment plan for your condition."
+                        />
                     </div>
                 </div>
             </section>
