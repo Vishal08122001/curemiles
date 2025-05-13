@@ -2,6 +2,7 @@
 import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import FAQ from '../components/FAQ.astro';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 import { getCollection } from 'astro:content';
 import FormattedDate from '../components/FormattedDate.astro';
@@ -97,6 +98,93 @@ const posts = (await getCollection('blog')).sort(
 							<h3>Innovation First</h3>
 							<p>Stay ahead with the latest digital trends and technologies.</p>
 						</div>
+					</div>
+				</div>
+			</section>
+
+			<!-- FAQ and Lead Form Section -->
+			<section class="faq-form-section">
+				<div class="container faq-form-container">
+					<div class="faq-section">
+						<FAQ
+							title="FAQs"
+							faqs={[
+								{
+									question: "How much can I save on medical treatment in India?",
+									answer: "International patients typically save 60-80% on medical treatments in India compared to the US, UK, or Singapore. For example, a heart bypass that costs $100,000 in the US would cost around $10,000-15,000 in India, including all medical expenses and stay."
+								},
+								{
+									question: "Are Indian hospitals internationally accredited?",
+									answer: "Yes, many Indian hospitals are accredited by Joint Commission International (JCI) and National Accreditation Board for Hospitals (NABH). These hospitals follow international protocols and standards for patient care and safety."
+								},
+								{
+									question: "How do I get a medical visa for India?",
+									answer: "We assist in obtaining a medical visa for you and your companion. The process typically takes 3-5 working days. Required documents include a letter from the treating hospital, passport copies, and medical reports."
+								},
+								{
+									question: "What support services do you provide?",
+									answer: "We provide end-to-end assistance including airport pickup, hospital appointments, accommodation booking, language interpretation, local transportation, and post-treatment follow-up care coordination."
+								},
+								{
+									question: "What are the success rates for cancer treatment in India?",
+									answer: "Success rates vary by cancer type and stage but are comparable to global standards. Early-stage cancers show 60-80% success rates. Indian oncologists are trained at top global institutions and use the latest treatment protocols."
+								}
+							]}
+						/>
+					</div>
+					<div class="lead-form-container">
+						<form name="medical-lead" method="POST" data-netlify="true" class="medical-lead-form">
+							<h3>Get a Free Treatment Cost Estimate</h3>
+							<p class="form-description">Fill out this form and our medical experts will contact you with a detailed cost estimate.</p>
+
+							<div class="form-group">
+								<input
+									type="text"
+									name="name"
+									placeholder="Full Name"
+									required
+									class="form-input"
+								/>
+							</div>
+
+							<div class="form-group">
+								<input 
+									type="email" 
+									name="email" 
+									placeholder="Email" 
+									required 
+									class="form-input"
+								/>
+							</div>
+
+							<div class="form-group">
+								<input
+									type="text"
+									name="country"
+									placeholder="Country"
+									required
+									class="form-input"
+								/>
+							</div>
+
+							<div class="form-group">
+								<textarea
+									name="condition"
+									placeholder="Brief about your condition"
+									required
+									class="form-input form-textarea"
+									rows="4"
+								></textarea>
+							</div>
+
+							<button type="submit" class="form-submit">
+								<span>Get Free Estimate</span>
+								<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+									<line x1="5" y1="12" x2="19" y2="12"></line>
+									<polyline points="12 5 19 12 12 19"></polyline>
+								</svg>
+							</button>
+						</form>
 					</div>
 				</div>
 			</section>
@@ -260,6 +348,116 @@ const posts = (await getCollection('blog')).sort(
 				margin-bottom: 0.5rem;
 			}
 
+			.faq-form-section {
+				padding: 4rem 0;
+				background: linear-gradient(to bottom right, var(--bg), var(--card-bg));
+			}
+
+			.faq-form-container {
+				display: grid;
+				grid-template-columns: 1fr 1fr;
+				gap: 2rem;
+				align-items: start;
+			}
+
+			.faq-section {
+				background: var(--card-bg);
+				border-radius: var(--radius);
+				border: 1px solid var(--border);
+				height: fit-content;
+			}
+
+			.lead-form-container {
+				padding: 2rem;
+				background: var(--card-bg);
+				border-radius: var(--radius);
+				border: 1px solid var(--border);
+				box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+				height: fit-content;
+				position: sticky;
+				top: 2rem;
+			}
+
+			.medical-lead-form {
+				display: flex;
+				flex-direction: column;
+				gap: 1.5rem;
+			}
+
+			.medical-lead-form h3 {
+				font-size: 2rem;
+				text-align: center;
+				margin-bottom: 0.5rem;
+				background: linear-gradient(135deg, var(--primary), var(--accent));
+				-webkit-background-clip: text;
+				background-clip: text;
+				-webkit-text-fill-color: transparent;
+			}
+
+			.form-description {
+				text-align: center;
+				color: var(--text-muted);
+				margin-bottom: 1rem;
+				font-size: 0.95rem;
+			}
+
+			.form-group {
+				display: flex;
+				flex-direction: column;
+				gap: 0.5rem;
+			}
+
+			.form-input {
+				width: 100%;
+				padding: 0.75rem 1rem;
+				border: 1px solid var(--border);
+				border-radius: var(--radius);
+				background: var(--bg);
+				color: var(--text);
+				font-size: 1rem;
+				transition: var(--transition);
+			}
+
+			.form-input:focus {
+				outline: none;
+				border-color: var(--primary);
+				box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+			}
+
+			.form-textarea {
+				resize: vertical;
+				min-height: 100px;
+			}
+
+			.form-submit {
+				display: inline-flex;
+				align-items: center;
+				justify-content: center;
+				gap: 0.5rem;
+				padding: 0.75rem 1.5rem;
+				background: var(--primary);
+				color: white;
+				border: none;
+				border-radius: var(--radius);
+				font-size: 1rem;
+				font-weight: 600;
+				cursor: pointer;
+				transition: var(--transition);
+			}
+
+			.form-submit:hover {
+				background: var(--accent);
+				transform: translateY(-1px);
+			}
+
+			.form-submit svg {
+				transition: transform 0.2s ease;
+			}
+
+			.form-submit:hover svg {
+				transform: translateX(5px);
+			}
+
 			@media (max-width: 768px) {
 				.hero-container {
 					grid-template-columns: 1fr;
@@ -287,6 +485,35 @@ const posts = (await getCollection('blog')).sort(
 				.gradient-circle {
 					width: 300px;
 					height: 300px;
+				}
+
+				.faq-form-container {
+					grid-template-columns: 1fr;
+					gap: 2rem;
+				}
+
+				.faq-section,
+				.lead-form-container {
+					height: auto;
+				}
+
+				.lead-form-container {
+					padding: 1.5rem;
+					margin: 0;
+				}
+
+				.form-submit {
+					width: 100%;
+				}
+			}
+
+			@media (prefers-reduced-motion: reduce) {
+				.form-submit:hover {
+					transform: none;
+				}
+				
+				.form-submit svg {
+					transition: none;
 				}
 			}
 		</style>

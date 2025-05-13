@@ -1,0 +1,54 @@
+---
+// Replace with your AdSense publisher ID
+const ADSENSE_ID = 'ca-pub-XXXXXXXXXXXXXXXX';
+
+interface Props {
+    adSlot: string;
+    adFormat?: 'auto' | 'fluid' | 'rectangle' | 'horizontal' | 'vertical';
+    style?: string;
+}
+
+const { 
+    adSlot,
+    adFormat = 'auto',
+    style = 'display: block; text-align: center;'
+} = Astro.props;
+
+const formatMap = {
+    auto: '',
+    fluid: 'data-ad-format="fluid" data-ad-layout="in-article"',
+    rectangle: 'data-ad-format="rectangle"',
+    horizontal: 'data-ad-format="horizontal"',
+    vertical: 'data-ad-format="vertical"'
+};
+---
+
+<div class="ad-container">
+    <ins class="adsbygoogle"
+         style={style}
+         data-ad-client={ADSENSE_ID}
+         data-ad-slot={adSlot}
+         data-full-width-responsive="true"
+         set:html={formatMap[adFormat]} />
+</div>
+
+<style>
+    .ad-container {
+        margin: 2rem auto;
+        max-width: 100%;
+        overflow: hidden;
+        background: var(--bg);
+        border-radius: var(--radius);
+        min-height: 100px;
+    }
+
+    @media (max-width: 768px) {
+        .ad-container {
+            margin: 1.5rem auto;
+        }
+    }
+</style>
+
+<script is:inline>
+    (adsbygoogle = window.adsbygoogle || []).push({});
+</script>

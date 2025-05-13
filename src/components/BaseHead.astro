@@ -12,6 +12,7 @@ interface Props {
 	type?: 'website' | 'article';
 	publishDate?: Date;
 	author?: string;
+	keywords?: string;
 }
 
 const {
@@ -21,7 +22,8 @@ const {
 	canonicalURL = new URL(Astro.url.pathname, Astro.site),
 	type = 'website',
 	publishDate,
-	author = 'CureMiles Team'
+	author = 'CureMiles Team',
+	keywords = 'medical tourism, medical treatment in India, affordable healthcare, international patients, medical procedures'
 } = Astro.props;
 
 // SEO Image URL
@@ -39,6 +41,10 @@ const seoImage = new URL(image, Astro.site);
 <link rel="alternate" type="application/rss+xml" title={SITE_TITLE} href={new URL('rss.xml', Astro.site)} />
 <meta name="generator" content={Astro.generator} />
 
+<!-- AdSense Verification -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_ADSENSE_ID"
+     crossorigin="anonymous"></script>
+
 <!-- Preconnect to required origins -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -54,12 +60,13 @@ const seoImage = new URL(image, Astro.site);
 <title>{title}</title>
 <meta name="title" content={title} />
 <meta name="description" content={description} />
+<meta name="keywords" content={keywords} />
 <meta name="author" content={author} />
 {publishDate && <meta name="date" content={publishDate.toISOString()} />}
 
 <!-- Open Graph / Facebook -->
 <meta property="og:type" content={type} />
-<meta property="og:url" content={Astro.url} />
+<meta property="og:url" content={canonicalURL} />
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
 <meta property="og:image" content={seoImage} />
@@ -72,8 +79,11 @@ const seoImage = new URL(image, Astro.site);
 <meta name="twitter:description" content={description} />
 <meta name="twitter:image" content={seoImage} />
 
+<!-- Language Alternates -->
+<link rel="alternate" hreflang="en" href={canonicalURL} />
+<link rel="alternate" hreflang="x-default" href={canonicalURL} />
+
 <!-- Additional SEO -->
-<meta name="keywords" content="medical tourism india, healthcare tourism, cancer treatment india, cardiac surgery india, ayurveda treatment, wellness tourism, affordable healthcare, international patients" />
 <meta name="robots" content="index, follow" />
 <meta name="language" content="English" />
 <meta name="rating" content="General" />

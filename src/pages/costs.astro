@@ -1,0 +1,394 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import FAQ from '../components/FAQ.astro';
+import { SITE_TITLE } from '../consts';
+
+const treatments = [
+    {
+        name: "Cancer Treatment",
+        procedures: [
+            {
+                name: "Chemotherapy (per cycle)",
+                costIndia: "1,500-3,000",
+                costUS: "15,000-30,000",
+                savings: "90%"
+            },
+            {
+                name: "Radiation Therapy",
+                costIndia: "4,000-6,000",
+                costUS: "20,000-40,000",
+                savings: "85%"
+            },
+            {
+                name: "Cancer Surgery",
+                costIndia: "8,000-15,000",
+                costUS: "50,000-100,000",
+                savings: "85%"
+            }
+        ]
+    },
+    {
+        name: "Cardiac Procedures",
+        procedures: [
+            {
+                name: "Angioplasty",
+                costIndia: "3,000-5,000",
+                costUS: "28,000-40,000",
+                savings: "88%"
+            },
+            {
+                name: "Heart Bypass (CABG)",
+                costIndia: "7,000-9,000",
+                costUS: "70,000-130,000",
+                savings: "93%"
+            },
+            {
+                name: "Valve Replacement",
+                costIndia: "8,000-10,000",
+                costUS: "80,000-170,000",
+                savings: "94%"
+            }
+        ]
+    }
+];
+
+const costSchema = {
+    "@context": "https://schema.org",
+    "@type": "MedicalWebPage",
+    "about": {
+        "@type": "MedicalProcedure",
+        "name": "Medical Treatment Costs in India",
+        "description": "Comprehensive guide to medical treatment costs in India compared to other countries"
+    },
+    "specialty": "Medical Tourism",
+    "audience": "International Patients"
+};
+---
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <BaseHead 
+            title="Medical Treatment Costs in India | Save Up to 90% on Healthcare"
+            description="Compare medical treatment costs in India vs USA, UK & Singapore. Get detailed pricing for cancer treatment, cardiac surgery, and more. Updated May 2025."
+        />
+        
+        <script type="application/ld+json" set:html={JSON.stringify(costSchema)} />
+    </head>
+    <body>
+        <Header />
+        <main>
+            <section class="hero">
+                <div class="container">
+                    <h1>Medical Treatment Costs in India</h1>
+                    <p class="subtitle">Save 60-90% on World-Class Healthcare</p>
+                    <div class="highlights">
+                        <div class="highlight-card">
+                            <span class="number">80%</span>
+                            <span class="text">Average Cost Savings</span>
+                        </div>
+                        <div class="highlight-card">
+                            <span class="number">JCI</span>
+                            <span class="text">Accredited Hospitals</span>
+                        </div>
+                        <div class="highlight-card">
+                            <span class="number">24/7</span>
+                            <span class="text">Patient Support</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="cost-comparison">
+                <div class="container">
+                    {treatments.map(treatment => (
+                        <div class="treatment-category">
+                            <h2>{treatment.name} Costs in India vs USA</h2>
+                            <div class="cost-table">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Procedure</th>
+                                            <th>Cost in India (USD)</th>
+                                            <th>Cost in USA (USD)</th>
+                                            <th>Your Savings</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {treatment.procedures.map(procedure => (
+                                            <tr>
+                                                <td>{procedure.name}</td>
+                                                <td>${procedure.costIndia}</td>
+                                                <td>${procedure.costUS}</td>
+                                                <td>{procedure.savings}</td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </section>
+
+            <section class="cost-includes">
+                <div class="container">
+                    <h2>What's Included in The Cost?</h2>
+                    <div class="includes-grid">
+                        <div class="include-card">
+                            <h3>Medical Expenses</h3>
+                            <ul>
+                                <li>Doctor's fees</li>
+                                <li>Surgery costs</li>
+                                <li>Hospital stay</li>
+                                <li>Medical tests</li>
+                                <li>Medications</li>
+                            </ul>
+                        </div>
+                        <div class="include-card">
+                            <h3>Support Services</h3>
+                            <ul>
+                                <li>Airport pickup/drop</li>
+                                <li>Language assistance</li>
+                                <li>Visa assistance</li>
+                                <li>Local transportation</li>
+                                <li>24/7 care coordinator</li>
+                            </ul>
+                        </div>
+                        <div class="include-card">
+                            <h3>Additional Services</h3>
+                            <ul>
+                                <li>Hotel booking</li>
+                                <li>Meal arrangements</li>
+                                <li>Tourism assistance</li>
+                                <li>SIM card</li>
+                                <li>Currency exchange</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <FAQ
+                title="Treatment Cost FAQs"
+                faqs={[
+                    {
+                        question: "Why are medical treatments so affordable in India?",
+                        answer: "Lower operational costs, competitive medical supply chains, and lower labor costs enable Indian hospitals to offer high-quality treatment at significantly lower prices without compromising on quality."
+                    },
+                    {
+                        question: "Are there any hidden costs?",
+                        answer: "No, we provide complete cost transparency. You'll receive a detailed cost estimate including all medical expenses, stay, medication, and support services. Any additional costs will be communicated upfront."
+                    },
+                    {
+                        question: "Do you offer financing options?",
+                        answer: "Yes, we partner with several financial institutions to offer medical loans and flexible payment plans for international patients. Our team can help you explore the best financing options."
+                    }
+                ]}
+            />
+
+            <div class="lead-form-container">
+                <form name="cost-estimate" method="POST" data-netlify="true" class="medical-lead-form">
+                    <h3>Get Personalized Cost Estimate</h3>
+                    <p class="form-description">Share your medical reports for an accurate treatment cost estimate within 24 hours.</p>
+
+                    <div class="form-group">
+                        <input type="text" name="name" placeholder="Full Name" required class="form-input" />
+                    </div>
+
+                    <div class="form-group">
+                        <input type="email" name="email" placeholder="Email" required class="form-input" />
+                    </div>
+
+                    <div class="form-group">
+                        <input type="tel" name="phone" placeholder="Phone (with country code)" required class="form-input" />
+                    </div>
+
+                    <div class="form-group">
+                        <select name="treatment" required class="form-input">
+                            <option value="">Select Treatment</option>
+                            <option value="cancer">Cancer Treatment</option>
+                            <option value="cardiac">Cardiac Surgery</option>
+                            <option value="orthopedic">Orthopedic Surgery</option>
+                            <option value="other">Other Treatment</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <textarea name="message" placeholder="Brief about your medical condition" required class="form-input form-textarea" rows="4"></textarea>
+                    </div>
+
+                    <button type="submit" class="form-submit">
+                        <span>Request Cost Estimate</span>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                            <polyline points="12 5 19 12 12 19"></polyline>
+                        </svg>
+                    </button>
+                </form>
+            </div>
+        </main>
+        <Footer />
+
+        <style>
+            .hero {
+                background: linear-gradient(135deg, var(--primary), var(--accent));
+                color: white;
+                padding: 4rem 0;
+                text-align: center;
+            }
+
+            .hero h1 {
+                font-size: 3rem;
+                margin-bottom: 1rem;
+            }
+
+            .subtitle {
+                font-size: 1.5rem;
+                opacity: 0.9;
+                margin-bottom: 3rem;
+            }
+
+            .highlights {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 2rem;
+                max-width: 900px;
+                margin: 0 auto;
+            }
+
+            .highlight-card {
+                background: rgba(255, 255, 255, 0.1);
+                padding: 2rem;
+                border-radius: var(--radius);
+                backdrop-filter: blur(10px);
+            }
+
+            .number {
+                display: block;
+                font-size: 2.5rem;
+                font-weight: 700;
+                margin-bottom: 0.5rem;
+            }
+
+            .text {
+                font-size: 1.1rem;
+                opacity: 0.9;
+            }
+
+            .container {
+                max-width: 1200px;
+                margin: 0 auto;
+                padding: 0 1.5rem;
+            }
+
+            .cost-comparison {
+                padding: 4rem 0;
+            }
+
+            .treatment-category {
+                margin-bottom: 3rem;
+            }
+
+            .treatment-category h2 {
+                margin-bottom: 2rem;
+                font-size: 2rem;
+            }
+
+            .cost-table {
+                overflow-x: auto;
+            }
+
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                background: var(--card-bg);
+                border-radius: var(--radius);
+                overflow: hidden;
+            }
+
+            th, td {
+                padding: 1rem;
+                text-align: left;
+                border-bottom: 1px solid var(--border);
+            }
+
+            th {
+                background: var(--primary);
+                color: white;
+                font-weight: 600;
+            }
+
+            tr:last-child td {
+                border-bottom: none;
+            }
+
+            .cost-includes {
+                padding: 4rem 0;
+                background: var(--card-bg);
+            }
+
+            .includes-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                gap: 2rem;
+            }
+
+            .include-card {
+                background: var(--bg);
+                padding: 2rem;
+                border-radius: var(--radius);
+                border: 1px solid var(--border);
+            }
+
+            .include-card h3 {
+                margin-bottom: 1rem;
+                color: var(--primary);
+            }
+
+            .include-card ul {
+                list-style: none;
+                padding: 0;
+                margin: 0;
+            }
+
+            .include-card li {
+                padding: 0.5rem 0;
+                padding-left: 1.5rem;
+                position: relative;
+            }
+
+            .include-card li:before {
+                content: "✓";
+                position: absolute;
+                left: 0;
+                color: var(--primary);
+            }
+
+            @media (max-width: 768px) {
+                .hero h1 {
+                    font-size: 2rem;
+                }
+
+                .subtitle {
+                    font-size: 1.2rem;
+                }
+
+                .highlights {
+                    grid-template-columns: 1fr;
+                }
+
+                .treatment-category h2 {
+                    font-size: 1.5rem;
+                }
+
+                .cost-table {
+                    margin: 0 -1.5rem;
+                    padding: 0 1.5rem;
+                }
+            }
+        </style>
+    </body>
+</html>

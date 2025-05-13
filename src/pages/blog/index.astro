@@ -231,29 +231,74 @@ const years = Object.keys(postsByYear).sort((a, b) => Number(b) - Number(a));
 				</div>
 			</div>
 
-			<form name="medical-lead" method="POST" data-netlify="true">
-				<h3>Get a Free Treatment Cost Estimate</h3>
+			<div class="lead-form-container">
+				<form
+					name="medical-lead"
+					method="POST"
+					data-netlify="true"
+					class="medical-lead-form"
+				>
+					<h3>Get a Free Treatment Cost Estimate</h3>
+					<p class="form-description">
+						Fill out this form and our medical experts will contact
+						you with a detailed cost estimate.
+					</p>
 
-				<input
-					type="text"
-					name="name"
-					placeholder="Full Name"
-					required
-				/>
-				<input type="email" name="email" placeholder="Email" required />
-				<input
-					type="text"
-					name="country"
-					placeholder="Country"
-					required
-				/>
-				<textarea
-					name="condition"
-					placeholder="Brief about your condition"
-					required></textarea>
+					<div class="form-group">
+						<input
+							type="text"
+							name="name"
+							placeholder="Full Name"
+							required
+							class="form-input"
+						/>
+					</div>
 
-				<button type="submit">Submit</button>
-			</form>
+					<div class="form-group">
+						<input
+							type="email"
+							name="email"
+							placeholder="Email"
+							required
+							class="form-input"
+						/>
+					</div>
+
+					<div class="form-group">
+						<input
+							type="text"
+							name="country"
+							placeholder="Country"
+							required
+							class="form-input"
+						/>
+					</div>
+
+					<div class="form-group">
+						<textarea
+							name="condition"
+							placeholder="Brief about your condition"
+							required
+							class="form-input form-textarea"
+							rows="4"></textarea>
+					</div>
+
+					<button type="submit" class="form-submit">
+						<span>Get Free Estimate</span>
+						<svg
+							width="20"
+							height="20"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="2"
+						>
+							<line x1="5" y1="12" x2="19" y2="12"></line>
+							<polyline points="12 5 19 12 12 19"></polyline>
+						</svg>
+					</button>
+				</form>
+			</div>
 		</main>
 		<Footer />
 

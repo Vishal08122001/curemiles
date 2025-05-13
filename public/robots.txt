@@ -1,14 +1,43 @@
 User-agent: *
 Allow: /
 
-# Allow search engines to crawl all important pages
+# Allow search engines to crawl medical tourism content
 Allow: /blog/
 Allow: /about
+Allow: /treatments/
+Allow: /hospitals/
+Allow: /doctors/
+Allow: /packages/
+Allow: /testimonials/
 Allow: /sitemap-index.xml
 
-# Block admin and unnecessary files
+# Medical tourism specific content
+Allow: /blog/cancer-treatment-india/
+Allow: /blog/cardiac-surgery-india/
+Allow: /blog/medical-visa-india/
+Allow: /blog/ayurveda-treatment/
+
+# Block sensitive and utility pages
 Disallow: /admin/
 Disallow: /fonts/
+Disallow: /search/
+Disallow: /search?*
+Disallow: /private/
+Disallow: /404
 
-# Sitemap location
+# Media crawling directives
+User-agent: Googlebot-Image
+Allow: /images/
+Allow: /uploads/
+Allow: *.jpg
+Allow: *.jpeg
+Allow: *.png
+Allow: *.webp
+
+# Set crawl rate for better performance
+Crawl-delay: 10
+
+# XML Sitemaps
 Sitemap: https://curemiles.com/sitemap-index.xml
+Sitemap: https://curemiles.com/blog-sitemap.xml
+Sitemap: https://curemiles.com/treatments-sitemap.xml

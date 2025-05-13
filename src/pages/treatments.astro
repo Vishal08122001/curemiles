@@ -1,0 +1,431 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import AdSense from '../components/AdSense.astro';
+
+const treatments = {
+    cancer: {
+        title: "Cancer Treatment Options",
+        description: "Compare different cancer treatment approaches available in India",
+        options: [
+            {
+                name: "Chemotherapy",
+                description: "Systemic treatment using drugs to destroy cancer cells",
+                advantages: [
+                    "Can treat cancer anywhere in body",
+                    "Proven track record",
+                    "Can be combined with other treatments"
+                ],
+                disadvantages: [
+                    "Side effects can be significant",
+                    "Multiple sessions required",
+                    "May affect healthy cells"
+                ],
+                averageCost: "$2,000-4,000 per cycle",
+                duration: "3-6 months",
+                recovery: "1-2 weeks per cycle"
+            },
+            {
+                name: "Radiation Therapy",
+                description: "Using high-energy rays to kill cancer cells",
+                advantages: [
+                    "Highly targeted treatment",
+                    "Less invasive than surgery",
+                    "Can shrink tumors effectively"
+                ],
+                disadvantages: [
+                    "May require daily treatments",
+                    "Can affect nearby tissues",
+                    "Some side effects possible"
+                ],
+                averageCost: "$5,000-8,000",
+                duration: "1-2 months",
+                recovery: "Minimal downtime"
+            },
+            {
+                name: "Immunotherapy",
+                description: "Boosting body's immune system to fight cancer",
+                advantages: [
+                    "Natural approach using body's defenses",
+                    "Fewer side effects than chemo",
+                    "Can prevent cancer recurrence"
+                ],
+                disadvantages: [
+                    "Not effective for all cancers",
+                    "High cost",
+                    "Response varies by patient"
+                ],
+                averageCost: "$8,000-15,000",
+                duration: "6-12 months",
+                recovery: "Varies by protocol"
+            }
+        ]
+    },
+    cardiac: {
+        title: "Cardiac Treatment Options",
+        description: "Compare different heart treatment procedures available in India",
+        options: [
+            {
+                name: "Angioplasty",
+                description: "Opening blocked arteries using balloon and stents",
+                advantages: [
+                    "Minimally invasive",
+                    "Quick recovery time",
+                    "Immediate symptom relief"
+                ],
+                disadvantages: [
+                    "May need repeated procedures",
+                    "Not suitable for all blockages",
+                    "Risk of restenosis"
+                ],
+                averageCost: "$3,000-5,000",
+                duration: "1-2 days",
+                recovery: "1 week"
+            },
+            {
+                name: "Bypass Surgery (CABG)",
+                description: "Creating new routes for blood flow around blocked arteries",
+                advantages: [
+                    "Long-lasting results",
+                    "Can treat multiple blockages",
+                    "Comprehensive solution"
+                ],
+                disadvantages: [
+                    "Major surgery",
+                    "Longer recovery time",
+                    "General anesthesia risks"
+                ],
+                averageCost: "$7,000-9,000",
+                duration: "4-6 hours",
+                recovery: "4-6 weeks"
+            }
+        ]
+    }
+};
+
+const treatmentSchema = {
+    "@context": "https://schema.org",
+    "@type": "MedicalWebPage",
+    "about": {
+        "@type": "MedicalProcedure",
+        "name": "Medical Treatment Comparisons",
+        "description": "Comprehensive comparison of medical treatments available in India"
+    },
+    "specialty": "Medical Tourism",
+    "audience": "International Patients"
+};
+---
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <BaseHead 
+            title="Compare Medical Treatments in India | Cost & Benefits Analysis"
+            description="Compare different medical treatment options in India - including costs, benefits, recovery time, and success rates. Make an informed decision about your treatment."
+        />
+        <script type="application/ld+json" set:html={JSON.stringify(treatmentSchema)} />
+    </head>
+    <body>
+        <Header />
+        <main>
+            <section class="hero">
+                <div class="container">
+                    <h1>Compare Medical Treatments</h1>
+                    <p class="subtitle">Make an informed decision about your treatment options in India</p>
+                </div>
+            </section>
+
+            <AdSense adSlot="treatment-page-top" adFormat="responsive" />
+
+            <section class="treatments">
+                <div class="container">
+                    {Object.entries(treatments).map(([key, category]) => (
+                        <div class="treatment-category">
+                            <h2>{category.title}</h2>
+                            <p class="category-description">{category.description}</p>
+
+                            <div class="comparison-table-wrapper">
+                                <div class="comparison-table">
+                                    <div class="table-header">
+                                        <div class="header-cell">Treatment Option</div>
+                                        <div class="header-cell">Description</div>
+                                        <div class="header-cell">Advantages</div>
+                                        <div class="header-cell">Disadvantages</div>
+                                        <div class="header-cell">Cost</div>
+                                        <div class="header-cell">Duration</div>
+                                        <div class="header-cell">Recovery</div>
+                                    </div>
+
+                                    {category.options.map(option => (
+                                        <div class="table-row">
+                                            <div class="table-cell">
+                                                <h3>{option.name}</h3>
+                                            </div>
+                                            <div class="table-cell">
+                                                <p>{option.description}</p>
+                                            </div>
+                                            <div class="table-cell">
+                                                <ul>
+                                                    {option.advantages.map(adv => (
+                                                        <li>{adv}</li>
+                                                    ))}
+                                                </ul>
+                                            </div>
+                                            <div class="table-cell">
+                                                <ul>
+                                                    {option.disadvantages.map(dis => (
+                                                        <li>{dis}</li>
+                                                    ))}
+                                                </ul>
+                                            </div>
+                                            <div class="table-cell">
+                                                <p class="cost">{option.averageCost}</p>
+                                            </div>
+                                            <div class="table-cell">
+                                                <p>{option.duration}</p>
+                                            </div>
+                                            <div class="table-cell">
+                                                <p>{option.recovery}</p>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </section>
+
+            <AdSense adSlot="treatment-page-bottom" adFormat="responsive" />
+
+            <section class="cta-section">
+                <div class="container">
+                    <div class="cta-content">
+                        <h2>Need Help Choosing the Right Treatment?</h2>
+                        <p>Our medical experts will help you understand your options and recommend the best treatment plan.</p>
+                        
+                        <form name="treatment-consultation" method="POST" data-netlify="true" class="consultation-form">
+                            <div class="form-group">
+                                <input type="text" name="name" placeholder="Full Name" required class="form-input" />
+                            </div>
+
+                            <div class="form-group">
+                                <input type="email" name="email" placeholder="Email Address" required class="form-input" />
+                            </div>
+
+                            <div class="form-group">
+                                <input type="tel" name="phone" placeholder="Phone (with country code)" required class="form-input" />
+                            </div>
+
+                            <div class="form-group">
+                                <textarea name="message" placeholder="Tell us about your medical condition" required class="form-input form-textarea" rows="4"></textarea>
+                            </div>
+
+                            <button type="submit" class="submit-button">
+                                <span>Get Expert Advice</span>
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                    <polyline points="12 5 19 12 12 19"></polyline>
+                                </svg>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </section>
+        </main>
+        <Footer />
+
+        <style>
+            .hero {
+                background: linear-gradient(135deg, var(--primary), var(--accent));
+                color: white;
+                padding: 4rem 0;
+                text-align: center;
+            }
+
+            .container {
+                max-width: 1200px;
+                margin: 0 auto;
+                padding: 0 1.5rem;
+            }
+
+            .treatments {
+                padding: 4rem 0;
+            }
+
+            .treatment-category {
+                margin-bottom: 4rem;
+            }
+
+            .treatment-category h2 {
+                color: var(--primary);
+                margin-bottom: 1rem;
+            }
+
+            .category-description {
+                font-size: 1.1rem;
+                margin-bottom: 2rem;
+                color: var(--text-light);
+            }
+
+            .comparison-table-wrapper {
+                overflow-x: auto;
+                margin: 0 -1.5rem;
+                padding: 0 1.5rem;
+            }
+
+            .comparison-table {
+                min-width: 1000px;
+                border-radius: var(--radius);
+                background: var(--card-bg);
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            }
+
+            .table-header {
+                display: grid;
+                grid-template-columns: 1fr 1.5fr 1.5fr 1.5fr 1fr 1fr 1fr;
+                gap: 1px;
+                background: var(--primary);
+                padding: 1px;
+                border-radius: var(--radius) var(--radius) 0 0;
+            }
+
+            .header-cell {
+                background: var(--primary);
+                color: white;
+                padding: 1rem;
+                font-weight: 600;
+                text-align: left;
+            }
+
+            .table-row {
+                display: grid;
+                grid-template-columns: 1fr 1.5fr 1.5fr 1.5fr 1fr 1fr 1fr;
+                gap: 1px;
+                background: var(--border);
+                padding: 1px;
+            }
+
+            .table-cell {
+                background: var(--card-bg);
+                padding: 1rem;
+            }
+
+            .table-cell h3 {
+                margin: 0;
+                color: var(--primary);
+                font-size: 1.1rem;
+            }
+
+            .table-cell ul {
+                list-style: none;
+                padding: 0;
+                margin: 0;
+            }
+
+            .table-cell li {
+                position: relative;
+                padding-left: 1.5rem;
+                margin-bottom: 0.5rem;
+            }
+
+            .table-cell li:before {
+                content: "✓";
+                position: absolute;
+                left: 0;
+                color: var(--primary);
+            }
+
+            .cost {
+                color: var(--accent);
+                font-weight: 600;
+            }
+
+            .cta-section {
+                background: var(--card-bg);
+                padding: 4rem 0;
+                margin-top: 4rem;
+            }
+
+            .cta-content {
+                max-width: 600px;
+                margin: 0 auto;
+                text-align: center;
+            }
+
+            .consultation-form {
+                margin-top: 2rem;
+                display: grid;
+                gap: 1rem;
+            }
+
+            .form-input {
+                width: 100%;
+                padding: 0.75rem 1rem;
+                border: 1px solid var(--border);
+                border-radius: var(--radius);
+                background: var(--bg);
+                color: var(--text);
+            }
+
+            .form-textarea {
+                resize: vertical;
+            }
+
+            .submit-button {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                gap: 0.5rem;
+                background: var(--primary);
+                color: white;
+                border: none;
+                padding: 1rem 2rem;
+                border-radius: var(--radius);
+                cursor: pointer;
+                font-weight: 600;
+                transition: background 0.3s ease;
+            }
+
+            .submit-button:hover {
+                background: var(--primary-dark);
+            }
+
+            @media (max-width: 768px) {
+                .comparison-table {
+                    display: block;
+                }
+
+                .table-header {
+                    display: none;
+                }
+
+                .table-row {
+                    display: block;
+                    margin-bottom: 2rem;
+                    border: 1px solid var(--border);
+                    border-radius: var(--radius);
+                }
+
+                .table-cell {
+                    display: block;
+                    padding: 1rem;
+                    border-bottom: 1px solid var(--border);
+                }
+
+                .table-cell:before {
+                    content: attr(data-label);
+                    font-weight: 600;
+                    display: block;
+                    margin-bottom: 0.5rem;
+                    color: var(--primary);
+                }
+
+                .table-cell:last-child {
+                    border-bottom: none;
+                }
+            }
+        </style>
+    </body>
+</html>
