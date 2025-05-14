@@ -54,6 +54,8 @@ const structuredData = type === 'article'
 
 <html lang="en">
   <head>
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'nonce-astro' https://www.googletagmanager.com https://pagead2.googlesyndication.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self'; connect-src 'self' https://www.google-analytics.com; frame-src https://www.youtube.com;" />
+
     <!-- Global Metadata -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
@@ -119,12 +121,12 @@ const structuredData = type === 'article'
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_ACTUAL_ADSENSE_ID" crossorigin="anonymous"></script>
 
     <!-- JSON-LD -->
-    <script type="application/ld+json">
+    <script type="application/ld+json" nonce="astro">
       {JSON.stringify(structuredData)}
     </script>
 
     <!-- GTM Consent Mode -->
-    <script>
+    <script nonce="astro">
       (function() {
         window.dataLayer = window.dataLayer || [];
         window.gtag = function () { dataLayer.push(arguments); };
@@ -147,55 +149,7 @@ const structuredData = type === 'article'
       })();
     </script>
 
-    <!-- Theme Script: Inline for early execution -->
-    <script is:inline>
-      (function() {
-        function applyTheme(theme) {
-          var htmlElement = document.documentElement;
-          var themeToggle = document.getElementById('theme-toggle');
-          var isDarkMode = theme === 'dark' || 
-            (theme === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches);
-          htmlElement.classList.remove('light-theme', 'dark-theme');
-          if (theme !== 'auto') {
-            htmlElement.classList.add(isDarkMode ? 'dark-theme' : 'light-theme');
-          }
-          if (themeToggle) {
-            themeToggle.setAttribute('aria-label', 
-              'Switch to ' + (isDarkMode ? 'light' : 'dark') + ' theme'
-            );
-          }
-        }
-        function initTheme() {
-          var themeToggle = document.getElementById('theme-toggle');
-          var htmlElement = document.documentElement;
-          // Get the user's theme preference from localStorage
-          var savedTheme = localStorage.getItem('theme') || 'auto';
-          applyTheme(savedTheme);
-          // Listen for theme toggle clicks
-          if (themeToggle) {
-            themeToggle.addEventListener('click', function() {
-              var currentTheme = htmlElement.classList.contains('dark-theme') ? 'light' :
-                                  htmlElement.classList.contains('light-theme') ? 'auto' : 'dark';
-              applyTheme(currentTheme);
-              localStorage.setItem('theme', currentTheme);
-            });
-          }
-          // Watch for system theme changes
-          var mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-          mediaQuery.addEventListener('change', function() {
-            if (localStorage.getItem('theme') === 'auto') {
-              applyTheme('auto');
-            }
-          });
-        }
-        if (document.readyState === 'loading') {
-          document.addEventListener('DOMContentLoaded', initTheme);
-        } else {
-          initTheme();
-        }
-      })();
-    </script>
+    <!-- Theme Script: External for CSP compliance -->
+    <script src="/src/scripts/theme.js" is:inline></script>
   </head>
-  <body>
-  </body>
 </html>

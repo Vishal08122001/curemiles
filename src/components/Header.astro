@@ -1,19 +1,26 @@
 ---
-import HeaderLink from './HeaderLink.astro';
-import { SITE_TITLE } from '../consts';
+import HeaderLink from "./HeaderLink.astro";
+import { SITE_TITLE } from "../consts";
 ---
 
 <header class="main-header">
 	<nav class="container">
 		<a href="/" class="logo">
 			<svg width="40" height="40" viewBox="0 0 40 40" fill="none">
-				<path d="M20 4L4 12L20 20L36 12L20 4Z" fill="var(--primary)"/>
-				<path d="M4 20L20 28L36 20" stroke="var(--accent)" stroke-width="2"/>
-				<path d="M4 28L20 36L36 28" stroke="var(--secondary)" stroke-width="2"/>
+				<path d="M20 4L4 12L20 20L36 12L20 4Z" fill="var(--primary)"
+				></path>
+				<path
+					d="M4 20L20 28L36 20"
+					stroke="var(--accent)"
+					stroke-width="2"></path>
+				<path
+					d="M4 28L20 36L36 28"
+					stroke="var(--secondary)"
+					stroke-width="2"></path>
 			</svg>
 			<span>{SITE_TITLE}</span>
 		</a>
-		
+
 		<div class="nav-group">
 			<div class="nav-links">
 				<HeaderLink href="/">Home</HeaderLink>
@@ -21,13 +28,39 @@ import { SITE_TITLE } from '../consts';
 				<HeaderLink href="/about">About</HeaderLink>
 			</div>
 
-			<button class="theme-toggle" id="theme-toggle" title="Toggle theme" aria-label="Toggle theme">
-				<svg class="sun-icon" width="24" height="24" viewBox="0 0 24 24" fill="none">
-					<path d="M12 17C14.7614 17 17 14.7614 17 12C17 9.23858 14.7614 7 12 7C9.23858 7 7 9.23858 7 12C7 14.7614 9.23858 17 12 17Z" stroke="currentColor" stroke-width="2"/>
-					<path d="M12 1V3M12 21V23M1 12H3M21 12H23M4.22 4.22L5.64 5.64M18.36 18.36L19.78 19.78M18.36 5.64L19.78 4.22M4.22 19.78L5.64 18.36" stroke="currentColor" stroke-width="2"/>
+			<button
+				class="theme-toggle"
+				id="theme-toggle"
+				title="Toggle theme"
+				aria-label="Toggle theme"
+			>
+				<svg
+					class="sun-icon"
+					width="24"
+					height="24"
+					viewBox="0 0 24 24"
+					fill="none"
+				>
+					<path
+						d="M12 17C14.7614 17 17 14.7614 17 12C17 9.23858 14.7614 7 12 7C9.23858 7 7 9.23858 7 12C7 14.7614 9.23858 17 12 17Z"
+						stroke="currentColor"
+						stroke-width="2"></path>
+					<path
+						d="M12 1V3M12 21V23M1 12H3M21 12H23M4.22 4.22L5.64 5.64M18.36 18.36L19.78 19.78M18.36 5.64L19.78 4.22M4.22 19.78L5.64 18.36"
+						stroke="currentColor"
+						stroke-width="2"></path>
 				</svg>
-				<svg class="moon-icon" width="24" height="24" viewBox="0 0 24 24" fill="none">
-					<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" stroke="currentColor" stroke-width="2"/>
+				<svg
+					class="moon-icon"
+					width="24"
+					height="24"
+					viewBox="0 0 24 24"
+					fill="none"
+				>
+					<path
+						d="M21 12.79A9 9 0 1 1 11.21 3 A7 7 0 0 0 21 12.79z"
+						stroke="currentColor"
+						stroke-width="2"></path>
 				</svg>
 			</button>
 		</div>
@@ -35,122 +68,122 @@ import { SITE_TITLE } from '../consts';
 </header>
 
 <style>
-.main-header {
-	position: sticky;
-	top: 0;
-	z-index: 100;
-	background: var(--bg);
-	border-bottom: 1px solid var(--border);
-	padding: 1rem 0;
-	backdrop-filter: blur(10px);
-}
-
-nav {
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	width: 100%;
-	padding: 0 2rem;
-}
-
-.logo {
-	display: flex;
-	align-items: center;
-	gap: 0.75rem;
-	font-size: 1.5rem;
-	font-weight: 800;
-	color: var(--text);
-	text-decoration: none;
-}
-
-.logo span {
-	background: linear-gradient(135deg, var(--primary), var(--secondary));
-	-webkit-background-clip: text;
-	-webkit-text-fill-color: transparent;
-}
-
-.nav-group {
-	display: flex;
-	align-items: center;
-	gap: 2rem;
-}
-
-.nav-links {
-	display: flex;
-	gap: 1.5rem;
-	align-items: center;
-}
-
-.nav-links a {
-	color: var(--text-muted);
-	font-weight: 500;
-	transition: var(--transition);
-}
-
-.nav-links a:hover,
-.nav-links a[aria-current="page"] {
-	color: var(--primary);
-}
-
-.theme-toggle {
-	background: none;
-	border: none;
-	padding: 0.5rem;
-	cursor: pointer;
-	color: var(--text-muted);
-	border-radius: var(--radius-sm);
-	transition: var(--transition);
-	display: flex;
-	align-items: center;
-	justify-content: center;
-}
-
-.theme-toggle:hover {
-	color: var(--text);
-	background: var(--card-bg);
-}
-
-.theme-toggle svg {
-	width: 20px;
-	height: 20px;
-}
-
-/* Show/hide icons based on theme */
-.theme-toggle .sun-icon {
-	display: none;
-}
-
-.theme-toggle .moon-icon {
-	display: block;
-}
-
-/* Light theme */
-:root[class~="light-theme"] .theme-toggle .sun-icon {
-	display: block;
-}
-
-:root[class~="light-theme"] .theme-toggle .moon-icon {
-	display: none;
-}
-
-/* Mobile Navigation */
-@media (max-width: 768px) {
-	.nav-group {
-		gap: 1rem;
+	.main-header {
+		position: sticky;
+		top: 0;
+		z-index: 100;
+		background: var(--bg);
+		border-bottom: 1px solid var(--border);
+		padding: 1rem 0;
+		backdrop-filter: blur(10px);
 	}
 
-	.nav-links {
-		gap: 1rem;
+	nav {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		width: 100%;
+		padding: 0 2rem;
+	}
+
+	.logo {
+		display: flex;
+		align-items: center;
+		gap: 0.75rem;
+		font-size: 1.5rem;
+		font-weight: 800;
+		color: var(--text);
+		text-decoration: none;
 	}
 
 	.logo span {
+		background: linear-gradient(135deg, var(--primary), var(--secondary));
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+	}
+
+	.nav-group {
+		display: flex;
+		align-items: center;
+		gap: 2rem;
+	}
+
+	.nav-links {
+		display: flex;
+		gap: 1.5rem;
+		align-items: center;
+	}
+
+	.nav-links a {
+		color: var(--text-muted);
+		font-weight: 500;
+		transition: var(--transition);
+	}
+
+	.nav-links a:hover,
+	.nav-links a[aria-current="page"] {
+		color: var(--primary);
+	}
+
+	.theme-toggle {
+		background: none;
+		border: none;
+		padding: 0.5rem;
+		cursor: pointer;
+		color: var(--text-muted);
+		border-radius: var(--radius-sm);
+		transition: var(--transition);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.theme-toggle:hover {
+		color: var(--text);
+		background: var(--card-bg);
+	}
+
+	.theme-toggle svg {
+		width: 20px;
+		height: 20px;
+	}
+
+	/* Show/hide icons based on theme */
+	.theme-toggle .sun-icon {
 		display: none;
 	}
-}
 
-@media (max-width: 480px) {
-	.nav-links a {
-		font-size: 0.9rem;
+	.theme-toggle .moon-icon {
+		display: block;
 	}
-}
+
+	/* Light theme */
+	:root[class~="light-theme"] .theme-toggle .sun-icon {
+		display: block;
+	}
+
+	:root[class~="light-theme"] .theme-toggle .moon-icon {
+		display: none;
+	}
+
+	/* Mobile Navigation */
+	@media (max-width: 768px) {
+		.nav-group {
+			gap: 1rem;
+		}
+
+		.nav-links {
+			gap: 1rem;
+		}
+
+		.logo span {
+			display: none;
+		}
+	}
+
+	@media (max-width: 480px) {
+		.nav-links a {
+			font-size: 0.9rem;
+		}
+	}
 </style>

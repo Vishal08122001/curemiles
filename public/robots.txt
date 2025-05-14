@@ -1,5 +1,5 @@
 User-agent: *
-Allow: /
+Allow: /fonts/
 
 # Allow search engines to crawl medical tourism content
 Allow: /blog/

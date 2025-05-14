@@ -1,30 +1,32 @@
 // Theme toggle functionality
-function initTheme() {
+const initTheme = function () {
   const themeToggle = document.getElementById('theme-toggle');
   const htmlElement = document.documentElement;
-  
+
   // Get the user's theme preference from localStorage
   const savedTheme = localStorage.getItem('theme') || 'auto';
   applyTheme(savedTheme);
-  
+
   // Listen for theme toggle clicks
-  themeToggle?.addEventListener('click', () => {
-    const currentTheme = htmlElement.classList.contains('dark-theme') ? 'light' :
-                        htmlElement.classList.contains('light-theme') ? 'auto' : 'dark';
-    applyTheme(currentTheme);
-    localStorage.setItem('theme', currentTheme);
-  });
-  
+  if (themeToggle) {
+    themeToggle.addEventListener('click', function () {
+      const currentTheme = htmlElement.classList.contains('dark-theme') ? 'light' :
+        htmlElement.classList.contains('light-theme') ? 'auto' : 'dark';
+      applyTheme(currentTheme);
+      localStorage.setItem('theme', currentTheme);
+    });
+  }
+
   // Watch for system theme changes
   const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-  mediaQuery.addEventListener('change', () => {
+  mediaQuery.addEventListener('change', function () {
     if (localStorage.getItem('theme') === 'auto') {
       applyTheme('auto');
     }
   });
-}
+};
 
-function applyTheme(theme) {
+const applyTheme = function (theme) {
   const htmlElement = document.documentElement;
   const themeToggle = document.getElementById('theme-toggle');
   const isDarkMode = theme === 'dark' || 
@@ -42,7 +44,7 @@ function applyTheme(theme) {
       `Switch to ${isDarkMode ? 'light' : 'dark'} theme`
     );
   }
-}
+};
 
 // Initialize theme when the DOM is loaded
 if (document.readyState === 'loading') {
