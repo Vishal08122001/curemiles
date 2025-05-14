@@ -69,6 +69,7 @@ function togglePreferences() {
 }
 
 function initCookieConsent() {
+  debugger;
   const preferences = getStoredPreferences();
 
   if (!localStorage.getItem("cookiePreferences")) {
@@ -113,14 +114,6 @@ function initCookieConsent() {
     initGTM();
   });
 }
-
-// Export functions if needed as module
-export {
-  initCookieConsent,
-  getStoredPreferences,
-  savePreferences,
-  updateGTMConsent
-};
 
 // Initialize when DOM is loaded
 if (document.readyState === "loading") {

@@ -1,6 +1,4 @@
 ---
-import CookieConsent from "./CookieConsent.astro";
-
 const today = new Date();
 ---
 
@@ -65,8 +63,9 @@ const today = new Date();
 			</div>
 		</div>
 	</div>
-	<CookieConsent/>
 </footer>
+
+<script src="/scripts/footer.js" is:inline></script>
 
 <style>
 	.main-footer {
@@ -207,14 +206,3 @@ const today = new Date();
 		}
 	}
 </style>
-
-<script>
-	const form = document.querySelector('.newsletter-form');
-	form?.addEventListener('submit', (e) => {
-		e.preventDefault();
-		const email = (form.querySelector('input') as HTMLInputElement).value;
-		console.log('Newsletter subscription:', email);
-		form.reset();
-		alert('Thank you for subscribing!');
-	});
-</script>
