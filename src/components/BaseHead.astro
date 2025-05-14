@@ -1,6 +1,4 @@
 ---
-// Import the global.css file here so that it is included on
-// all pages through the use of the <BaseHead /> component.
 import '../styles/global.css';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 import CookieConsent from './CookieConsent.astro';
@@ -27,118 +25,131 @@ const {
   keywords = 'medical tourism, medical treatment in India, affordable healthcare, international patients, medical procedures'
 } = Astro.props;
 
-// SEO Image URL
 const seoImage = new URL(image, Astro.site);
----
 
-<!-- Global Metadata -->
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-<link rel="manifest" href="/site.webmanifest" />
-<meta name="theme-color" content="#3B82F6" />
-<link rel="sitemap" href="/sitemap-index.xml" />
-<link rel="alternate" type="application/rss+xml" title={SITE_TITLE} href={new URL('rss.xml', Astro.site)} />
-<meta name="generator" content={Astro.generator} />
-
-<!-- Preconnect to required origins -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preconnect" href="https://pagead2.googlesyndication.com">
-<link rel="preconnect" href="https://www.googletagmanager.com">
-
-<!-- Font preloads -->
-<link rel="preload" href="/fonts/atkinson-regular.woff" as="font" type="font/woff" crossorigin fetchpriority="high" />
-<link rel="preload" href="/fonts/atkinson-bold.woff" as="font" type="font/woff" crossorigin fetchpriority="high" />
-
-<!-- Canonical URL -->
-<link rel="canonical" href={canonicalURL} />
-
-<!-- Primary Meta Tags -->
-<title>{title}</title>
-<meta name="title" content={title} />
-<meta name="description" content={description} />
-<meta name="keywords" content={keywords} />
-<meta name="author" content={author} />
-{publishDate && <meta name="date" content={publishDate.toISOString()} />}
-
-<!-- Open Graph / Facebook -->
-<meta property="og:type" content={type} />
-<meta property="og:url" content={canonicalURL} />
-<meta property="og:title" content={title} />
-<meta property="og:description" content={description} />
-<meta property="og:image" content={seoImage} />
-<meta property="og:site_name" content={SITE_TITLE} />
-{publishDate && <meta property="article:published_time" content={publishDate.toISOString()} />}
-
-<!-- Twitter -->
-<meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content={title} />
-<meta name="twitter:description" content={description} />
-<meta name="twitter:image" content={seoImage} />
-
-<!-- Language Alternates -->
-<link rel="alternate" hreflang="en" href={canonicalURL} />
-<link rel="alternate" hreflang="x-default" href={canonicalURL} />
-
-<!-- Additional SEO -->
-<meta name="robots" content="index, follow" />
-<meta name="language" content="English" />
-<meta name="rating" content="General" />
-<meta name="revisit-after" content="7 days" />
-<meta name="geo.region" content="IN" />
-<meta name="geo.position" content="20.5937;78.9629" />
-<meta name="ICBM" content="20.5937, 78.9629" />
-
-<!-- Content Security Policy -->
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.googletagmanager.com https://pagead2.googlesyndication.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self'; connect-src 'self' https://www.google-analytics.com; frame-src https://www.youtube.com;" />
-
-<!-- AdSense Verification -->
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_ACTUAL_ADSENSE_ID"
-     crossorigin="anonymous"></script>
-
-<!-- Schema.org markup -->
-<script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": type === 'article' ? "Article" : "Organization",
-    "name": SITE_TITLE,
-    "url": Astro.site,
-    "logo": new URL("/favicon.svg", Astro.site),
-    "description": SITE_DESCRIPTION,
-    ...(type === 'article' && {
+const structuredData = type === 'article'
+  ? {
+      "@context": "https://schema.org",
+      "@type": "Article",
       "headline": title,
-      "image": seoImage,
+      "image": seoImage.href,
       ...(publishDate && { "datePublished": publishDate.toISOString() }),
       "author": {
         "@type": "Person",
         "name": author
-      }
-    })
-  }
-</script>
+      },
+      "name": SITE_TITLE,
+      "url": Astro.site,
+      "logo": new URL("/favicon.svg", Astro.site).href,
+      "description": description
+    }
+  : {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": SITE_TITLE,
+      "url": Astro.site,
+      "logo": new URL("/favicon.svg", Astro.site).href,
+      "description": description
+    };
+---
 
-<!-- Google Consent Mode v2 and GTM Initialization -->
-<script>
-(function() {
-  window.dataLayer = window.dataLayer || [];
-  window.gtag = function(){window.dataLayer.push(arguments);};
-  window.gtag('consent', 'default', {
-    'ad_storage': 'denied',
-    'analytics_storage': 'denied',
-    'functionality_storage': 'granted',
-    'security_storage': 'granted'
-  });
-  var gtagScript = document.createElement('script');
-  gtagScript.async = true;
-  gtagScript.src = 'https://www.googletagmanager.com/gtag/js?id=G-CJZD10VZT1';
-  document.head.appendChild(gtagScript);
-  gtagScript.onload = function() {
-    window.gtag('js', new Date());
-    window.gtag('config', 'G-CJZD10VZT1');
-  };
-})();
-</script>
+<html lang="en">
+  <head>
+    <!-- Global Metadata -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="theme-color" content="#3B82F6" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <link rel="alternate" type="application/rss+xml" title={SITE_TITLE} href={new URL('rss.xml', Astro.site)} />
+    <meta name="generator" content={Astro.generator} />
 
-<CookieConsent />
+    <!-- Preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://pagead2.googlesyndication.com" />
+    <link rel="preconnect" href="https://www.googletagmanager.com" />
+
+    <!-- Font preload -->
+    <link rel="preload" href="/fonts/atkinson-regular.woff" as="font" type="font/woff" crossorigin fetchpriority="high" />
+    <link rel="preload" href="/fonts/atkinson-bold.woff" as="font" type="font/woff" crossorigin fetchpriority="high" />
+
+    <!-- Canonical -->
+    <link rel="canonical" href={canonicalURL} />
+
+    <!-- SEO Meta Tags -->
+    <title>{title}</title>
+    <meta name="title" content={title} />
+    <meta name="description" content={description} />
+    <meta name="keywords" content={keywords} />
+    <meta name="author" content={author} />
+    {publishDate && <meta name="date" content={publishDate.toISOString()} />}
+
+    <!-- Open Graph -->
+    <meta property="og:type" content={type} />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={seoImage} />
+    <meta property="og:site_name" content={SITE_TITLE} />
+    {publishDate && <meta property="article:published_time" content={publishDate.toISOString()} />}
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={seoImage} />
+
+    <!-- Language & Indexing -->
+    <link rel="alternate" hreflang="en" href={canonicalURL} />
+    <link rel="alternate" hreflang="x-default" href={canonicalURL} />
+    <meta name="robots" content="index, follow" />
+    <meta name="language" content="English" />
+    <meta name="rating" content="General" />
+    <meta name="revisit-after" content="7 days" />
+    <meta name="geo.region" content="IN" />
+    <meta name="geo.position" content="20.5937;78.9629" />
+    <meta name="ICBM" content="20.5937, 78.9629" />
+
+    <!-- CSP -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.googletagmanager.com https://pagead2.googlesyndication.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self'; connect-src 'self' https://www.google-analytics.com; frame-src https://www.youtube.com;" />
+
+    <!-- AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_ACTUAL_ADSENSE_ID" crossorigin="anonymous"></script>
+
+    <!-- JSON-LD -->
+    <script type="application/ld+json">
+      {JSON.stringify(structuredData)}
+    </script>
+
+    <!-- GTM Consent Mode -->
+    <script>
+      (function() {
+        window.dataLayer = window.dataLayer || [];
+        window.gtag = function () { dataLayer.push(arguments); };
+        window.gtag('consent', 'default', {
+          ad_storage: 'denied',
+          analytics_storage: 'denied',
+          functionality_storage: 'granted',
+          security_storage: 'granted'
+        });
+
+        const gtagScript = document.createElement('script');
+        gtagScript.async = true;
+        gtagScript.src = 'https://www.googletagmanager.com/gtag/js?id=G-CJZD10VZT1';
+        document.head.appendChild(gtagScript);
+
+        gtagScript.onload = function () {
+          window.gtag('js', new Date());
+          window.gtag('config', 'G-CJZD10VZT1');
+        };
+      })();
+    </script>
+  </head>
+  <body>
+    
+    <CookieConsent/>
+  </body>
+</html>
