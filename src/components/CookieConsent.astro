@@ -1,21 +1,24 @@
 ---
-const GTM_ID = 'GTM-CJZD10VZT1';
+const GTM_ID = "GTM-CJZD10VZT1";
 ---
 
 <!-- Google Tag Manager - No Script -->
 <noscript>
-  <iframe 
-    src={`https://www.googletagmanager.com/ns.html?id=${GTM_ID}`}
+  <iframe
+    src={"https://www.googletagmanager.com/ns.html?id=" + GTM_ID}
     height="0"
     width="0"
-    style="display:none;visibility:hidden">
+    style="display:none;visibility:hidden"
+  >
   </iframe>
 </noscript>
 
 <div id="cookie-consent" class="cookie-banner">
   <div class="cookie-content">
     <p>
-      We use cookies and similar technologies to improve your experience. Choose "Accept All" to allow cookies and enable analytics for a better experience, or "Customize" to manage your preferences.
+      We use cookies and similar technologies to improve your experience. Choose
+      "Accept All" to allow cookies and enable analytics for a better
+      experience, or "Customize" to manage your preferences.
       <a href="/privacy-policy">Learn more</a>
     </p>
     <div class="cookie-buttons">
@@ -26,17 +29,20 @@ const GTM_ID = 'GTM-CJZD10VZT1';
   <div id="cookie-preferences" class="cookie-preferences">
     <div class="preference-group">
       <label class="preference-label">
-        <input type="checkbox" id="essential-cookies" checked disabled>
+        <input type="checkbox" id="essential-cookies" checked disabled />
         <span>Essential Cookies</span>
-        <small>Required for basic website functionality. Cannot be disabled.</small>
+        <small
+          >Required for basic website functionality. Cannot be disabled.</small
+        >
       </label>
       <label class="preference-label">
-        <input type="checkbox" id="analytics-cookies">
+        <input type="checkbox" id="analytics-cookies" />
         <span>Analytics Cookies</span>
-        <small>Help us understand how visitors interact with our website.</small>
+        <small>Help us understand how visitors interact with our website.</small
+        >
       </label>
       <label class="preference-label">
-        <input type="checkbox" id="marketing-cookies">
+        <input type="checkbox" id="marketing-cookies" />
         <span>Marketing Cookies</span>
         <small>Used for personalized advertisements and recommendations.</small>
       </label>
@@ -82,7 +88,7 @@ const GTM_ID = 'GTM-CJZD10VZT1';
   }
 
   .cookie-content a {
-    color: var(--primary, #007BFF);
+    color: var(--primary, #007bff);
     text-decoration: underline;
   }
 
@@ -107,7 +113,7 @@ const GTM_ID = 'GTM-CJZD10VZT1';
   }
 
   .btn-accept {
-    background: var(--primary, #007BFF);
+    background: var(--primary, #007bff);
     border: none;
     color: white;
   }
@@ -147,7 +153,7 @@ const GTM_ID = 'GTM-CJZD10VZT1';
   }
 
   .btn-save {
-    background: var(--primary, #007BFF);
+    background: var(--primary, #007bff);
     color: white;
     border: none;
     padding: 0.5rem 1rem;
@@ -180,7 +186,7 @@ const GTM_ID = 'GTM-CJZD10VZT1';
   const defaultPreferences = {
     essential: true,
     analytics: true,
-    marketing: true
+    marketing: true,
   };
 
   function getStoredPreferences() {
@@ -200,7 +206,7 @@ const GTM_ID = 'GTM-CJZD10VZT1';
     window.dataLayer.push({
       "gtm.start": new Date().getTime(),
       event: "gtm.js",
-      consentPreferences: preferences
+      consentPreferences: preferences,
     });
 
     const script = document.createElement("script");
@@ -216,7 +222,7 @@ const GTM_ID = 'GTM-CJZD10VZT1';
           ad_storage: preferences.marketing ? "granted" : "denied",
           analytics_storage: preferences.analytics ? "granted" : "denied",
           functionality_storage: "granted",
-          security_storage: "granted"
+          security_storage: "granted",
         });
       } else {
         setTimeout(doConsentUpdate, 100);
@@ -227,7 +233,7 @@ const GTM_ID = 'GTM-CJZD10VZT1';
     if (window.dataLayer) {
       window.dataLayer.push({
         event: "updateConsent",
-        consentPreferences: preferences
+        consentPreferences: preferences,
       });
     }
   }
@@ -263,29 +269,33 @@ const GTM_ID = 'GTM-CJZD10VZT1';
       const allAccepted = {
         essential: true,
         analytics: true,
-        marketing: true
+        marketing: true,
       };
       savePreferences(allAccepted);
       hideCookieBanner();
       initGTM();
     });
 
-    document.getElementById("customize-cookies")?.addEventListener("click", togglePreferences);
+    document
+      .getElementById("customize-cookies")
+      ?.addEventListener("click", togglePreferences);
 
-    document.getElementById("save-preferences")?.addEventListener("click", () => {
-      const analyticsInput = document.getElementById("analytics-cookies");
-      const marketingInput = document.getElementById("marketing-cookies");
+    document
+      .getElementById("save-preferences")
+      ?.addEventListener("click", () => {
+        const analyticsInput = document.getElementById("analytics-cookies");
+        const marketingInput = document.getElementById("marketing-cookies");
 
-      const newPreferences = {
-        essential: true,
-        analytics: analyticsInput?.checked || false,
-        marketing: marketingInput?.checked || false
-      };
+        const newPreferences = {
+          essential: true,
+          analytics: analyticsInput?.checked || false,
+          marketing: marketingInput?.checked || false,
+        };
 
-      savePreferences(newPreferences);
-      hideCookieBanner();
-      initGTM();
-    });
+        savePreferences(newPreferences);
+        hideCookieBanner();
+        initGTM();
+      });
   }
 
   document.addEventListener("DOMContentLoaded", initCookieConsent);
