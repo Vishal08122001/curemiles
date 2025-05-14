@@ -121,9 +121,7 @@ const structuredData = type === 'article'
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_ACTUAL_ADSENSE_ID" crossorigin="anonymous"></script>
 
     <!-- JSON-LD -->
-    <script type="application/ld+json" nonce="astro">
-      {JSON.stringify(structuredData)}
-    </script>
+    <script type="application/ld+json" set:html={JSON.stringify(structuredData)}/>
 
     <!-- GTM Consent Mode -->
     <script nonce="astro">
@@ -150,6 +148,6 @@ const structuredData = type === 'article'
     </script>
 
     <!-- Theme Script: External for CSP compliance -->
-    <script src="/src/scripts/theme.js" is:inline></script>
+    <script src="/scripts/theme.js" is:inline></script>
   </head>
 </html>

@@ -10,8 +10,8 @@ const initTheme = function () {
   // Listen for theme toggle clicks
   if (themeToggle) {
     themeToggle.addEventListener('click', function () {
-      const currentTheme = htmlElement.classList.contains('dark-theme') ? 'light' :
-        htmlElement.classList.contains('light-theme') ? 'auto' : 'dark';
+      // Only toggle between dark and light
+      const currentTheme = htmlElement.classList.contains('dark-theme') ? 'light' : 'dark';
       applyTheme(currentTheme);
       localStorage.setItem('theme', currentTheme);
     });
