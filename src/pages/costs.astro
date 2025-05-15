@@ -76,7 +76,9 @@ const costSchema = {
             description="Compare medical treatment costs in India vs USA, UK & Singapore. Get detailed pricing for cancer treatment, cardiac surgery, and more. Updated May 2025."
         />
         
-        <script type="application/ld+json" set:html={JSON.stringify(costSchema)} />
+        <script type="application/ld+json">
+  {JSON.stringify(costSchema).replace(/</g, "\\u003c")}
+</script>
     </head>
     <body>
         <Header />

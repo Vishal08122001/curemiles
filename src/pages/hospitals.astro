@@ -67,7 +67,10 @@ const hospitalSchema = {
             description="Discover top hospitals in India offering world-class medical treatment. JCI accredited facilities, experienced doctors & affordable healthcare packages."
             keywords="hospitals in India, medical tourism hospitals, JCI accredited hospitals, best hospitals India, international patient care"
         />
-        <script type="application/ld+json" set:html={JSON.stringify(hospitalSchema)} />
+<script type="application/ld+json">
+  {JSON.stringify(hospitalSchema).replace(/</g, "\\u003c")}
+</script>
+
     </head>
     <body>
         <Header />
