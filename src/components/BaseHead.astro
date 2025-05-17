@@ -98,7 +98,6 @@ const structuredData =
       content="default-src 'self'; script-src 'self' 'nonce-astro' https://www.googletagmanager.com https://pagead2.googlesyndication.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self'; connect-src 'self' https://www.google-analytics.com; frame-src https://www.youtube.com;"
     />
 
-    <!-- Global Metadata -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -114,13 +113,11 @@ const structuredData =
     />
     <meta name="generator" content={Astro.generator} />
 
-    <!-- Preconnect -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="preconnect" href="https://pagead2.googlesyndication.com" />
     <link rel="preconnect" href="https://www.googletagmanager.com" />
 
-    <!-- Font preload -->
     <link
       rel="preload"
       href="/fonts/atkinson-regular.woff"
@@ -138,10 +135,8 @@ const structuredData =
       fetchpriority="high"
     />
 
-    <!-- Canonical -->
     <link rel="canonical" href={canonicalURL} />
 
-    <!-- SEO Meta Tags -->
     <title>{title}</title>
     <meta name="title" content={title} />
     <meta name="description" content={description} />
@@ -149,7 +144,6 @@ const structuredData =
     <meta name="author" content={author} />
     {publishDate && <meta name="date" content={publishDate.toISOString()} />}
 
-    <!-- Open Graph -->
     <meta property="og:type" content={type} />
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:title" content={title} />
@@ -165,13 +159,11 @@ const structuredData =
       )
     }
 
-    <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={seoImage} />
 
-    <!-- Language & Indexing -->
     <link rel="alternate" hreflang="en" href={canonicalURL} />
     <link rel="alternate" hreflang="x-default" href={canonicalURL} />
     <meta name="robots" content="index, follow" />
@@ -182,16 +174,13 @@ const structuredData =
     <meta name="geo.position" content="20.5937;78.9629" />
     <meta name="ICBM" content="20.5937, 78.9629" />
 
-    <!-- AdSense -->
     <script
       async
       src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_ACTUAL_ADSENSE_ID"
       crossorigin="anonymous"></script>
 
-    <!-- JSON-LD -->
-    <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(structuredData)}/>
 
-    <!-- GTM Consent Mode -->
     <script nonce="astro">
       (function () {
         window.dataLayer = window.dataLayer || [];
