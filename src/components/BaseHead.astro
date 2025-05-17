@@ -58,9 +58,10 @@ const structuredData =
       }
     : {
         "@context": "https://schema.org",
-        "@type": ["Organization", "MedicalBusiness", "MedicalClinic"],
+        "@type": ["MedicalTourismAgency", "Organization"],
         "name": SITE_TITLE,
         "url": Astro.site,
+        "alternateName": "Nirog Yatra Medical Tourism", // Add alternate name if applicable
         "logo": {
           "@type": "ImageObject",
           "url": new URL("/favicon.svg", Astro.site).href,
@@ -88,6 +89,7 @@ const structuredData =
           "longitude": "77.2090"
         },
         "telephone": "+91-8076929271",
+        "email": "info@nirogyatra.com", // Add your email address
         "contactPoint": [
           {
             "@type": "ContactPoint",
@@ -101,6 +103,7 @@ const structuredData =
           "http://schema.org/Oncology",
           "http://schema.org/Cardiology",
           "http://schema.org/Orthopedics"
+          // Add more relevant medical specialties
         ],
         "hasOfferCatalog": {
           "@type": "OfferCatalog",
@@ -117,11 +120,13 @@ const structuredData =
                   "@type": "MedicalProcedure",
                   "name": "Chemotherapy",
                   "procedureType": "http://schema.org/TherapeuticProcedure"
+                  // Optionally add a URL to the specific procedure page: "url": "/cancer-treatment/chemotherapy"
                 },
                 {
                   "@type": "MedicalProcedure",
                   "name": "Radiation Therapy",
                   "procedureType": "http://schema.org/RadiationTherapy"
+                  // Optionally add a URL: "url": "/cancer-treatment/radiation-therapy"
                 }
               ]
             },
@@ -136,9 +141,11 @@ const structuredData =
                   "@type": "MedicalProcedure",
                   "name": "Coronary Bypass Surgery",
                   "procedureType": "http://schema.org/SurgicalProcedure"
+                  // Optionally add a URL: "url": "/cardiac-care/bypass-surgery"
                 }
               ]
-            }
+            },
+            // Add more medical therapies and procedures as needed
           ]
         },
         "hasCredential": [
@@ -147,9 +154,10 @@ const structuredData =
             "credentialCategory": "Medical Tourism Certification",
             "recognizedBy": {
               "@type": "Organization",
-              "name": "Joint Commission International"
+              "name": "Joint Commission International" // Replace with the actual certifying body if different
             }
           }
+          // Add more relevant credentials if any
         ]
       };
 ---
@@ -243,7 +251,7 @@ const structuredData =
       crossorigin="anonymous"></script>
 
     <script is:inline type="application/ld+json">
-      {JSON.stringify(structuredData)}
+      {structuredData}
     </script>
 
     <script nonce="astro">
