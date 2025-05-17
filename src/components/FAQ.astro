@@ -57,9 +57,7 @@ const faqSchema = {
     </div>
 </section>
 
-<script type="application/ld+json">
-  {JSON.stringify(faqSchema).replace(/</g, "\\u003c")}
-</script>
+<script type="application/ld+json" set:html={JSON.stringify(faqSchema)}/>
 
 <style>
     .faq-section {

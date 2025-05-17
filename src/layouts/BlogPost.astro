@@ -80,12 +80,8 @@ const medicalServiceSchema = {
 		/>
 
 		<!-- Structured Data -->
-		<script type="application/ld+json">
-  {JSON.stringify(articleSchema).replace(/</g, "\\u003c")}
-</script>
-<script type="application/ld+json">
-  {JSON.stringify(medicalServiceSchema).replace(/</g, "\\u003c")}
-</script>
+		<script type="application/ld+json"  set:html={JSON.stringify(articleSchema)}/>
+		<script type="application/ld+json" set:html={JSON.stringify(medicalServiceSchema)}/>
 
 	</head>
 

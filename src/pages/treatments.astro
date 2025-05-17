@@ -125,9 +125,7 @@ const treatmentSchema = {
             title="Compare Medical Treatments in India | Cost & Benefits Analysis"
             description="Compare different medical treatment options in India - including costs, benefits, recovery time, and success rates. Make an informed decision about your treatment."
         />
-<script type="application/ld+json">
-  {JSON.stringify(treatmentSchema).replace(/</g, "\\u003c")}
-</script>
+        <script type="application/ld+json" set:html={JSON.stringify(treatmentSchema)}/>
 
     </head>
     <body>
