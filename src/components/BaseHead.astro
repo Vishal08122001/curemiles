@@ -31,25 +31,63 @@ const structuredData =
     ? {
         "@context": "https://schema.org",
         "@type": "Article",
-        headline: title,
-        image: seoImage.href,
-        ...(publishDate && { datePublished: publishDate.toISOString() }),
-        author: {
+        "headline": title,
+        "image": seoImage.href,
+        ...(publishDate && { "datePublished": publishDate.toISOString() }),
+        "author": {
           "@type": "Person",
-          name: author,
+          "name": author,
         },
-        name: SITE_TITLE,
-        url: Astro.site,
-        logo: new URL("/favicon.svg", Astro.site).href,
-        description: description,
+        "publisher": {
+          "@type": "Organization",
+          "name": SITE_TITLE,
+          "logo": {
+            "@type": "ImageObject",
+            "url": new URL("/favicon.svg", Astro.site).href
+          }
+        },
+        "description": description,
       }
     : {
         "@context": "https://schema.org",
-        "@type": "Organization",
-        name: SITE_TITLE,
-        url: Astro.site,
-        logo: new URL("/favicon.svg", Astro.site).href,
-        description: description,
+        "@type": ["Organization", "MedicalBusiness"],
+        "name": SITE_TITLE,
+        "url": Astro.site,
+        "logo": new URL("/favicon.svg", Astro.site).href,
+        "description": description,
+        "medicalSpecialty": "https://schema.org/MedicalClinic",
+        "hasOfferCatalog": {
+          "@type": "OfferCatalog",
+          "name": "Medical Tourism Services",
+          "itemListElement": [
+            {
+              "@type": "OfferCatalog",
+              "name": "Cancer Treatment",
+              "itemListElement": [
+                {
+                  "@type": "Offer",
+                  "itemOffered": {
+                    "@type": "Service",
+                    "name": "Oncology Consultation"
+                  }
+                }
+              ]
+            },
+            {
+              "@type": "OfferCatalog",
+              "name": "Cardiac Care",
+              "itemListElement": [
+                {
+                  "@type": "Offer",
+                  "itemOffered": {
+                    "@type": "Service",
+                    "name": "Cardiac Surgery"
+                  }
+                }
+              ]
+            }
+          ]
+        }
       };
 ---
 
@@ -144,12 +182,6 @@ const structuredData =
     <meta name="geo.position" content="20.5937;78.9629" />
     <meta name="ICBM" content="20.5937, 78.9629" />
 
-    <!-- CSP -->
-    <meta
-      http-equiv="Content-Security-Policy"
-      content="default-src 'self'; script-src 'self' https://www.googletagmanager.com https://pagead2.googlesyndication.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self'; connect-src 'self' https://www.google-analytics.com; frame-src https://www.youtube.com;"
-    />
-
     <!-- AdSense -->
     <script
       async
@@ -157,9 +189,7 @@ const structuredData =
       crossorigin="anonymous"></script>
 
     <!-- JSON-LD -->
-    <script type="application/ld+json">
-      {JSON.stringify(structuredData)}
-    </script>
+    <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
 
     <!-- GTM Consent Mode -->
     <script nonce="astro">
@@ -188,6 +218,9 @@ const structuredData =
       })();
     </script>
   </head>
+  <body>
+    <slot />
+  </body>
 </html>
 
 <script src="/scripts/theme.js" is:inline></script>

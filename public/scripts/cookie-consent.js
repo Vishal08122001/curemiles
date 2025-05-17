@@ -69,7 +69,6 @@ function togglePreferences() {
 }
 
 function initCookieConsent() {
-  debugger;
   const preferences = getStoredPreferences();
 
   if (!localStorage.getItem("cookiePreferences")) {
