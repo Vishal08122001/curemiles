@@ -32,62 +32,125 @@ const structuredData =
         "@context": "https://schema.org",
         "@type": "Article",
         "headline": title,
-        "image": seoImage.href,
-        ...(publishDate && { "datePublished": publishDate.toISOString() }),
+        "image": [seoImage.href],
+        "datePublished": publishDate ? publishDate.toISOString() : new Date().toISOString(),
+        "dateModified": publishDate ? publishDate.toISOString() : new Date().toISOString(),
         "author": {
-          "@type": "Person",
+          "@type": "Organization",
           "name": author,
+          "url": Astro.site
         },
         "publisher": {
           "@type": "Organization",
           "name": SITE_TITLE,
           "logo": {
             "@type": "ImageObject",
-            "url": new URL("/favicon.svg", Astro.site).href
+            "url": new URL("/favicon.svg", Astro.site).href,
+            "width": "512",
+            "height": "512"
           }
         },
         "description": description,
+        "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": canonicalURL
+        }
       }
     : {
         "@context": "https://schema.org",
-        "@type": ["Organization", "MedicalBusiness"],
+        "@type": ["Organization", "MedicalBusiness", "MedicalClinic"],
         "name": SITE_TITLE,
         "url": Astro.site,
-        "logo": new URL("/favicon.svg", Astro.site).href,
+        "logo": {
+          "@type": "ImageObject",
+          "url": new URL("/favicon.svg", Astro.site).href,
+          "width": "512",
+          "height": "512"
+        },
+        "image": [
+          new URL("/images/hospital-front.jpg", Astro.site).href,
+          new URL("/images/surgery-room.jpg", Astro.site).href,
+          new URL("/images/patient-care.jpg", Astro.site).href
+        ],
         "description": description,
-        "medicalSpecialty": "https://schema.org/MedicalClinic",
+        "@id": Astro.site,
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Medical Tourism Complex",
+          "addressLocality": "New Delhi",
+          "addressRegion": "Delhi",
+          "postalCode": "110001",
+          "addressCountry": "IN"
+        },
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": "28.6139",
+          "longitude": "77.2090"
+        },
+        "telephone": "+91-8076929271",
+        "contactPoint": [
+          {
+            "@type": "ContactPoint",
+            "telephone": "+91-8076929271",
+            "contactType": "customer service",
+            "areaServed": ["IN", "AE", "KE", "NG", "BD"],
+            "availableLanguage": ["English", "Hindi", "Arabic"]
+          }
+        ],
+        "medicalSpecialty": [
+          "http://schema.org/Oncology",
+          "http://schema.org/Cardiology",
+          "http://schema.org/Orthopedics"
+        ],
         "hasOfferCatalog": {
           "@type": "OfferCatalog",
           "name": "Medical Tourism Services",
           "itemListElement": [
             {
-              "@type": "OfferCatalog",
+              "@type": "MedicalTherapy",
               "name": "Cancer Treatment",
-              "itemListElement": [
+              "description": "Comprehensive cancer care including chemotherapy and radiation therapy",
+              "medicineSystem": "http://schema.org/WesternConventional",
+              "relevantSpecialty": "http://schema.org/Oncology",
+              "availableService": [
                 {
-                  "@type": "Offer",
-                  "itemOffered": {
-                    "@type": "Service",
-                    "name": "Oncology Consultation"
-                  }
+                  "@type": "MedicalProcedure",
+                  "name": "Chemotherapy",
+                  "procedureType": "http://schema.org/TherapeuticProcedure"
+                },
+                {
+                  "@type": "MedicalProcedure",
+                  "name": "Radiation Therapy",
+                  "procedureType": "http://schema.org/RadiationTherapy"
                 }
               ]
             },
             {
-              "@type": "OfferCatalog",
+              "@type": "MedicalTherapy",
               "name": "Cardiac Care",
-              "itemListElement": [
+              "description": "Advanced cardiac procedures including bypass and valve surgery",
+              "medicineSystem": "http://schema.org/WesternConventional",
+              "relevantSpecialty": "http://schema.org/Cardiology",
+              "availableService": [
                 {
-                  "@type": "Offer",
-                  "itemOffered": {
-                    "@type": "Service",
-                    "name": "Cardiac Surgery"
-                  }
+                  "@type": "MedicalProcedure",
+                  "name": "Coronary Bypass Surgery",
+                  "procedureType": "http://schema.org/SurgicalProcedure"
                 }
               ]
             }
           ]
-        }
+        },
+        "hasCredential": [
+          {
+            "@type": "EducationalOccupationalCredential",
+            "credentialCategory": "Medical Tourism Certification",
+            "recognizedBy": {
+              "@type": "Organization",
+              "name": "Joint Commission International"
+            }
+          }
+        ]
       };
 ---
 
@@ -179,7 +242,9 @@ const structuredData =
       src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_ACTUAL_ADSENSE_ID"
       crossorigin="anonymous"></script>
 
-    <script is:inline type="application/ld+json" set:html={JSON.stringify(structuredData)}/>
+    <script is:inline type="application/ld+json">
+      {JSON.stringify(structuredData)}
+    </script>
 
     <script nonce="astro">
       (function () {

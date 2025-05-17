@@ -59,12 +59,51 @@ const costSchema = {
     "@context": "https://schema.org",
     "@type": "MedicalWebPage",
     "about": {
-        "@type": "MedicalProcedure",
+        "@type": "MedicalBusiness",
         "name": "Medical Treatment Costs in India",
-        "description": "Comprehensive guide to medical treatment costs in India compared to other countries"
+        "description": "Comprehensive guide to medical treatment costs in India compared to other countries",
+        "branchCode": "IN",
+        "currenciesAccepted": ["USD", "INR"],
+        "priceRange": "$$"
     },
-    "specialty": "Medical Tourism",
-    "audience": "International Patients"
+    "hasPart": treatments.map(treatment => ({
+        "@type": "MedicalWebPage",
+        "about": {
+            "@type": "MedicalTherapy",
+            "name": treatment.name,
+            "availableService": treatment.procedures.map(procedure => ({
+                "@type": "MedicalProcedure",
+                "name": procedure.name,
+                "costCurrency": "USD",
+                "costOrigin": {
+                    "@type": "PriceSpecification",
+                    "price": procedure.costIndia.split('-')[0],
+                    "priceCurrency": "USD",
+                    "validIn": {
+                        "@type": "Country",
+                        "name": "India"
+                    }
+                },
+                "costComparison": {
+                    "@type": "PriceSpecification",
+                    "price": procedure.costUS.split('-')[0],
+                    "priceCurrency": "USD",
+                    "validIn": {
+                        "@type": "Country",
+                        "name": "United States"
+                    }
+                },
+                "estimatedCost": {
+                    "@type": "MonetaryAmount",
+                    "currency": "USD",
+                    "minValue": procedure.costIndia.split('-')[0].replace(/,/g, ''),
+                    "maxValue": procedure.costIndia.split('-')[1].replace(/,/g, '')
+                }
+            }))
+        }
+    })),
+    "specialty": ["Medical Tourism", "Medical Cost Comparison"],
+    "medicalAudience": "International Patients"
 };
 ---
 
@@ -76,7 +115,9 @@ const costSchema = {
             description="Compare medical treatment costs in India vs USA, UK & Singapore. Get detailed pricing for cancer treatment, cardiac surgery, and more. Updated May 2025."
         />
         
-        <script type="application/ld+json" set:html={JSON.stringify(costSchema)}/>
+        <script type="application/ld+json">
+            {JSON.stringify(costSchema)}
+        </script>
     </head>
     <body>
         <Header />

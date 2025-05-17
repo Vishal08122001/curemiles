@@ -15,16 +15,20 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 // Generate schema.org structured data
 const articleSchema = {
 	"@context": "https://schema.org",
-	"@type": "Article",
+	"@type": ["Article", "MedicalWebPage"],
 	headline: title,
 	description: description,
-	image: heroImage ? new URL(heroImage, Astro.site) : undefined,
+	image: heroImage ? [new URL(heroImage, Astro.site)] : undefined,
 	datePublished: pubDate.toISOString(),
 	dateModified: updatedDate?.toISOString() || pubDate.toISOString(),
 	author: {
 		"@type": "Organization",
 		name: SITE_TITLE,
 		url: Astro.site,
+		logo: {
+			"@type": "ImageObject",
+			url: new URL("/favicon.svg", Astro.site)
+		}
 	},
 	publisher: {
 		"@type": "Organization",
@@ -32,35 +36,129 @@ const articleSchema = {
 		logo: {
 			"@type": "ImageObject",
 			url: new URL("/favicon.svg", Astro.site),
-		},
+			width: "512",
+			height: "512"
+		}
 	},
 	mainEntityOfPage: {
 		"@type": "WebPage",
 		"@id": Astro.url,
+		breadcrumb: {
+			"@type": "BreadcrumbList",
+			itemListElement: [
+				{
+					"@type": "ListItem",
+					position: 1,
+					item: {
+						"@id": Astro.site,
+						name: "Home"
+					}
+				},
+				{
+					"@type": "ListItem",
+					position: 2,
+					item: {
+						"@id": new URL("/blog", Astro.site),
+						name: "Blog"
+					}
+				},
+				{
+					"@type": "ListItem",
+					position: 3,
+					item: {
+						"@id": Astro.url,
+						name: title
+					}
+				}
+			]
+		}
 	},
+	about: {
+		"@type": "MedicalCondition",
+		name: title,
+		description: description
+	},
+	specialty: "Medical Tourism",
+	audience: {
+		"@type": "Audience",
+		audienceType: "International Patients"
+	},
+	keywords: ["medical tourism", "healthcare in India", "affordable treatment"],
+	isAccessibleForFree: true,
+	license: "https://creativecommons.org/licenses/by-nc-sa/4.0/"
 };
 
 // Medical tourism specific schema
 const medicalServiceSchema = {
 	"@context": "https://schema.org",
-	"@type": "MedicalBusiness",
+	"@type": ["Organization", "MedicalBusiness", "MedicalClinic"],
 	name: SITE_TITLE,
-	image: new URL("/favicon.svg", Astro.site),
+	image: [
+		new URL("/images/hospital-front.jpg", Astro.site),
+		new URL("/images/surgery-room.jpg", Astro.site),
+		new URL("/images/patient-care.jpg", Astro.site)
+	],
 	"@id": Astro.site,
 	url: Astro.site,
-	telephone: "+91-8076929271",
+	contactPoint: [
+		{
+			"@type": "ContactPoint",
+			telephone: "+91-8076929271",
+			contactType: "customer service",
+			areaServed: ["IN", "AE", "KE", "NG", "BD"],
+			availableLanguage: ["English", "Hindi", "Arabic"]
+		},
+		{
+			"@type": "ContactPoint",
+			telephone: "+91-8076929271",
+			contactType: "emergency",
+			availableLanguage: ["English", "Hindi"]
+		}
+	],
 	priceRange: "$$",
 	address: {
-		"@type": "Delhi NCR",
+		"@type": "PostalAddress",
+		streetAddress: "Medical Tourism Complex",
+		addressLocality: "New Delhi",
 		addressCountry: "IN",
 		addressRegion: "Delhi NCR",
+		postalCode: "110001"
 	},
 	geo: {
 		"@type": "GeoCoordinates",
 		latitude: "28.6139",
-		longitude: "77.2090",
+		longitude: "77.2090"
 	},
-	medicalSpecialty: ["Oncology", "Cardiology", "Orthopedics", "Ayurveda"],
+	medicalSpecialty: [
+		"http://schema.org/Oncology",
+		"http://schema.org/Cardiology",
+		"http://schema.org/Orthopedics",
+		"http://schema.org/PhysicalTherapy"
+	],
+	availableService: [
+		{
+			"@type": "MedicalTherapy",
+			name: "Cancer Treatment",
+			medicineSystem: "http://schema.org/WesternConventional",
+			relevantSpecialty: "http://schema.org/Oncology"
+		},
+		{
+			"@type": "MedicalTherapy",
+			name: "Cardiac Care",
+			medicineSystem: "http://schema.org/WesternConventional",
+			relevantSpecialty: "http://schema.org/Cardiology"
+		}
+	],
+	hasCredential: [
+		{
+			"@type": "EducationalOccupationalCredential",
+			credentialCategory: "JCI Accreditation"
+		},
+		{
+			"@type": "EducationalOccupationalCredential",
+			credentialCategory: "NABH Accreditation"
+		}
+	]
 };
 ---
 
@@ -80,9 +178,10 @@ const medicalServiceSchema = {
 		/>
 
 		<!-- Structured Data -->
-		<script type="application/ld+json"  set:html={JSON.stringify(articleSchema)}/>
-		<script type="application/ld+json" set:html={JSON.stringify(medicalServiceSchema)}/>
-
+		<script type="application/ld+json" set:html={JSON.stringify(articleSchema)}>
+		</script>
+		<script type="application/ld+json" set:html={JSON.stringify(medicalServiceSchema)}>
+		</script>
 	</head>
 
 	<body>

@@ -109,12 +109,32 @@ const treatmentSchema = {
     "@context": "https://schema.org",
     "@type": "MedicalWebPage",
     "about": {
-        "@type": "MedicalProcedure",
-        "name": "Medical Treatment Comparisons",
-        "description": "Comprehensive comparison of medical treatments available in India"
+        "@type": "MedicalTherapy",
+        "name": "Medical Treatment Options in India",
+        "description": "Comprehensive comparison of medical treatments available in India for international patients"
     },
-    "specialty": "Medical Tourism",
-    "audience": "International Patients"
+    "medicalAudience": "International Patients",
+    "specialty": ["Medical Tourism", "Oncology", "Cardiology"],
+    "hasPart": Object.entries(treatments).map(([key, category]) => ({
+        "@type": "MedicalWebPage",
+        "name": category.title,
+        "description": category.description,
+        "about": {
+            "@type": "MedicalTherapy",
+            "treatmentIndication": key === "cancer" ? "Cancer" : "Heart Disease",
+            "availableService": category.options.map(option => ({
+                "@type": "MedicalProcedure",
+                "name": option.name,
+                "description": option.description,
+                "cost": {
+                    "@type": "PriceSpecification",
+                    "price": option.averageCost.replace(/[^0-9\-]/g, '').split('-')[0],
+                    "priceCurrency": "USD"
+                },
+                "procedureType": "http://schema.org/MedicalProcedure"
+            }))
+        }
+    }))
 };
 ---
 

@@ -50,12 +50,38 @@ const hospitalSchema = {
     "@type": "Hospital",
     "name": "Top Hospitals in India for Medical Tourism",
     "description": "Leading hospitals in India offering world-class medical treatment for international patients",
-    "medicalSpecialty": ["Oncology", "Cardiology", "Orthopedics", "Neurology"],
-    "availableService": hospitals.map(hospital => ({
-        "@type": "MedicalTherapy",
+    "hasCredential": [
+        {
+            "@type": "EducationalOccupationalCredential",
+            "credentialCategory": "JCI Accreditation"
+        },
+        {
+            "@type": "EducationalOccupationalCredential",
+            "credentialCategory": "NABH Accreditation"
+        }
+    ],    "department": hospitals.map(hospital => ({
+        "@type": "MedicalClinic",
         "name": hospital.name,
-        "description": hospital.description
-    }))
+        "description": hospital.description,
+        "medicalSpecialty": hospital.specialties,
+        "address": {
+            "@type": "PostalAddress",
+            "addressCountry": "IN",
+            "addressLocality": hospital.location.split(',')[0].trim()
+        },
+        "availableService": hospital.facilities.map(facility => ({
+            "@type": "MedicalService",
+            "name": facility
+        })),
+        "staff": hospital.doctors.map(doctor => ({
+            "@type": "Physician",
+            "name": doctor.name,
+            "medicalSpecialty": doctor.specialty,
+            "description": `${doctor.experience} of experience in ${doctor.specialty}`,
+            "image": doctor.image
+        }))
+    })),
+    "medicalSpecialty": ["Oncology", "Cardiology", "Orthopedics", "Neurology"]
 };
 ---
 
@@ -67,7 +93,9 @@ const hospitalSchema = {
             description="Discover top hospitals in India offering world-class medical treatment. JCI accredited facilities, experienced doctors & affordable healthcare packages."
             keywords="hospitals in India, medical tourism hospitals, JCI accredited hospitals, best hospitals India, international patient care"
         />
-    <script type="application/ld+json" set:html={JSON.stringify(hospitalSchema)}/>
+    <script type="application/ld+json">
+        {JSON.stringify(hospitalSchema)}
+    </script>
 
     </head>
     <body>
