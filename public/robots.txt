@@ -1,43 +1,4 @@
 User-agent: *
-Allow: /fonts/
-
-# Allow search engines to crawl medical tourism content
-Allow: /blog/
-Allow: /about
-Allow: /treatments/
-Allow: /hospitals/
-Allow: /doctors/
-Allow: /packages/
-Allow: /testimonials/
-Allow: /sitemap-index.xml
-
-# Medical tourism specific content
-Allow: /blog/cancer-treatment-india/
-Allow: /blog/cardiac-surgery-india/
-Allow: /blog/medical-visa-india/
-Allow: /blog/ayurveda-treatment/
-
-# Block sensitive and utility pages
 Disallow: /admin/
-Disallow: /fonts/
-Disallow: /search/
-Disallow: /search?*
-Disallow: /private/
-Disallow: /404
 
-# Media crawling directives
-User-agent: Googlebot-Image
-Allow: /images/
-Allow: /uploads/
-Allow: *.jpg
-Allow: *.jpeg
-Allow: *.png
-Allow: *.webp
-
-# Set crawl rate for better performance
-Crawl-delay: 10
-
-# XML Sitemaps
-Sitemap: https://nirogyatra.com/sitemap-index.xml
-Sitemap: https://nirogyatra.com/blog-sitemap.xml
-Sitemap: https://nirogyatra.com/treatments-sitemap.xml
+Sitemap: https://nirogyatra.com/sitemap.xml
