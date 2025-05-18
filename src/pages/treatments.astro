@@ -105,36 +105,117 @@ const treatments = {
     }
 };
 
-const treatmentSchema = {
+const medicalWebPageSchema = {
     "@context": "https://schema.org",
-    "@type": "MedicalWebPage",
+    "@type": ["WebPage", "MedicalWebPage"],
+    "@id": new URL("/treatments", Astro.site).toString(),
+    "url": new URL("/treatments", Astro.site).toString(),
+    "name": "Medical Treatment Options in India - Compare Costs & Benefits",
+    "description": "Compare different medical treatment options available in India including cancer care, cardiac procedures, and more. Detailed cost comparisons and treatment information.",
     "about": {
-        "@type": "MedicalTherapy",
-        "name": "Medical Treatment Options in India",
-        "description": "Comprehensive comparison of medical treatments available in India for international patients"
+        "@type": "MedicalBusiness",
+        "name": "Medical Tourism Services in India",
+        "medicalSpecialty": [
+            {"@type": "MedicalSpecialty", "name": "Oncology"},
+            {"@type": "MedicalSpecialty", "name": "Cardiology"},
+            {"@type": "MedicalSpecialty", "name": "Orthopedics"}
+        ]
     },
-    "medicalAudience": "International Patients",
-    "specialty": ["Medical Tourism", "Oncology", "Cardiology"],
-    "hasPart": Object.entries(treatments).map(([key, category]) => ({
-        "@type": "MedicalWebPage",
-        "name": category.title,
-        "description": category.description,
-        "about": {
-            "@type": "MedicalTherapy",
-            "treatmentIndication": key === "cancer" ? "Cancer" : "Heart Disease",
+    "audience": {
+        "@type": "MedicalAudience",
+        "audienceType": "International Patients"
+    },
+    "specialty": "Medical Tourism",
+    "inLanguage": "en"
+};
+
+const treatmentsSchema = {
+    "@context": "https://schema.org",
+    "@type": ["ItemList", "MedicalWebPage"],
+    "@id": new URL("/treatments", Astro.site).toString() + "#itemlist",
+    "about": {
+        "@type": "MedicalSpecialty",
+        "name": "Medical Tourism",
+        "url": new URL("/treatments", Astro.site).toString()
+    },
+    "specialty": ["Medical Tourism", "International Healthcare"],
+    "itemListElement": Object.entries(treatments).map(([key, category], index) => ({
+        "@type": "ListItem",
+        "position": index + 1,
+        "item": {
+            "@type": ["MedicalTherapy", "MedicalProcedure"],
+            "name": category.title,
+            "description": category.description,
+            "medicineSystem": "http://schema.org/WesternConventional",
+            "relevantSpecialty": [
+                key === "cancer" ? "http://schema.org/Oncology" : "http://schema.org/Cardiology",
+                "http://schema.org/MedicalTourism"
+            ],
             "availableService": category.options.map(option => ({
                 "@type": "MedicalProcedure",
                 "name": option.name,
                 "description": option.description,
-                "cost": {
-                    "@type": "PriceSpecification",
-                    "price": option.averageCost.replace(/[^0-9\-]/g, '').split('-')[0],
-                    "priceCurrency": "USD"
+                "howPerformed": option.description,
+                "procedure": {
+                    "@type": "HowTo",
+                    "name": option.name,
+                    "step": [
+                        {
+                            "@type": "HowToSection",
+                            "name": "Duration",
+                            "itemListElement": [{
+                                "@type": "HowToStep",
+                                "text": option.duration
+                            }]
+                        },
+                        {
+                            "@type": "HowToSection",
+                            "name": "Recovery",
+                            "itemListElement": [{
+                                "@type": "HowToStep",
+                                "text": option.recovery
+                            }]
+                        }
+                    ]
                 },
-                "procedureType": "http://schema.org/MedicalProcedure"
-            }))
+                "cost": {
+                    "@type": "MonetaryAmount",
+                    "currency": "USD",
+                    "value": {
+                        "@type": "QuantitativeValue",
+                        "minValue": Number(option.averageCost.replace(/[^0-9\-]/g, '').split('-')[0]) || 0,
+                        "maxValue": Number(option.averageCost.replace(/[^0-9\-]/g, '').split('-')[1]) || 0,
+                        "unitText": "USD"
+                    }
+                }
+            })),
+            "inLanguage": "en"
         }
-    }))
+    })),
+    "inLanguage": "en"
+};
+
+const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+        {
+            "@type": "Question",
+            "name": "How much do medical treatments cost in India?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Medical treatments in India typically cost 60-80% less than in the US or UK. For example, cancer treatments range from $2,000-8,000 per cycle, while cardiac procedures cost between $5,000-15,000, including hospital stay and care."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "What is the quality of medical care in India?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "India's top hospitals are JCI-accredited and use the latest medical technology. Doctors are internationally trained and follow global treatment protocols. Success rates are comparable to leading hospitals worldwide."
+            }
+        }
+    ]
 };
 ---
 
@@ -145,8 +226,9 @@ const treatmentSchema = {
             title="Compare Medical Treatments in India | Cost & Benefits Analysis"
             description="Compare different medical treatment options in India - including costs, benefits, recovery time, and success rates. Make an informed decision about your treatment."
         />
-        <script type="application/ld+json" set:html={JSON.stringify(treatmentSchema)}/>
-
+        <script type="application/ld+json" set:html={JSON.stringify(medicalWebPageSchema)}></script>
+        <script type="application/ld+json" set:html={JSON.stringify(treatmentsSchema)}></script>
+        <script type="application/ld+json" set:html={JSON.stringify(faqSchema)}></script>
     </head>
     <body>
         <Header />
@@ -158,7 +240,7 @@ const treatmentSchema = {
                 </div>
             </section>
 
-            <AdSense adSlot="treatment-page-top" adFormat="responsive" />
+            <AdSense adSlot="treatment-page-top" adFormat="auto" />
 
             <section class="treatments">
                 <div class="container">
@@ -219,7 +301,7 @@ const treatmentSchema = {
                 </div>
             </section>
 
-            <AdSense adSlot="treatment-page-bottom" adFormat="responsive" />            <section class="cta-section">
+            <AdSense adSlot="treatment-page-bottom" adFormat="auto" />            <section class="cta-section">
                 <div class="container">
                     <div class="cta-content">
                         <h2>Need Help Choosing the Right Treatment?</h2>

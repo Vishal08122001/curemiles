@@ -12,6 +12,89 @@ import CookieConsent from '../components/CookieConsent.astro';
 const posts = (await getCollection('blog')).sort(
 	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
 ).slice(0, 3);
+
+const websiteSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": new URL("/", Astro.site).toString(),
+    "url": new URL("/", Astro.site).toString(),
+    "name": SITE_TITLE,
+    "description": SITE_DESCRIPTION,
+    "publisher": {
+        "@type": "Organization",
+        "name": SITE_TITLE,
+        "@id": new URL("/", Astro.site).toString()
+    },
+    "inLanguage": "en"
+};
+
+const organizationSchema = {
+    "@context": "https://schema.org",
+    "@type": ["Organization", "MedicalBusiness", "LocalBusiness"],
+    "@id": new URL("/", Astro.site).toString(),
+    "name": SITE_TITLE,
+    "url": new URL("/", Astro.site).toString(),
+    "logo": {
+        "@type": "ImageObject",
+        "url": new URL("/favicon.svg", Astro.site).toString(),
+        "width": 512,
+        "height": 512,
+        "caption": SITE_TITLE + " Logo"
+    },
+    "image": [
+        new URL("/images/hospital-front.jpg", Astro.site).toString(),
+        new URL("/images/surgery-room.jpg", Astro.site).toString()
+    ],
+    "description": SITE_DESCRIPTION,
+    "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Medical Tourism Complex",
+        "addressLocality": "New Delhi",
+        "addressRegion": "Delhi",
+        "postalCode": "110001",
+        "addressCountry": "IN"
+    },
+    "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": "28.6139",
+        "longitude": "77.2090"
+    },
+    "telephone": "+91-8076929271",
+    "priceRange": "$$",
+    "contactPoint": [
+        {
+            "@type": "ContactPoint",
+            "telephone": "+91-8076929271",
+            "contactType": "customer service",
+            "contactOption": "TollFree",
+            "areaServed": ["IN", "AE", "KE", "NG", "BD"],
+            "availableLanguage": ["English", "Hindi", "Arabic"]
+        }
+    ],
+    "sameAs": [
+        "https://facebook.com/nirogyatra",
+        "https://twitter.com/nirogyatra",
+        "https://linkedin.com/company/nirogyatra"
+    ],
+    "inLanguage": "en"
+};
+
+const articlesSchema = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "itemListElement": posts.map((post, index) => ({
+        "@type": "ListItem",
+        "position": index + 1,
+        "item": {
+            "@type": "BlogPosting",
+            "headline": post.data.title,
+            "description": post.data.description,
+            "datePublished": post.data.pubDate.toISOString(),
+            "dateModified": post.data.updatedDate ? post.data.updatedDate.toISOString() : post.data.pubDate.toISOString(),
+            "url": new URL(`/blog/${post.id}`, Astro.site).toString()
+        }
+    }))
+};
 ---
 
 <!doctype html>
@@ -21,6 +104,9 @@ const posts = (await getCollection('blog')).sort(
 		<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 		<script src="/scripts/cookie-consent.js" is:inline></script>
 		
+		<script type="application/ld+json" set:html={JSON.stringify(websiteSchema)}></script>
+		<script type="application/ld+json" set:html={JSON.stringify(organizationSchema)}></script>
+		<script type="application/ld+json" set:html={JSON.stringify(articlesSchema)}></script>
 	</head>
 	<body>
 		<Header />

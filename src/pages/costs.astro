@@ -114,10 +114,7 @@ const costSchema = {
             title="Medical Treatment Costs in India | Save Up to 90% on Healthcare"
             description="Compare medical treatment costs in India vs USA, UK & Singapore. Get detailed pricing for cancer treatment, cardiac surgery, and more. Updated May 2025."
         />
-        
-        <script type="application/ld+json">
-            {JSON.stringify(costSchema)}
-        </script>
+          <script type="application/ld+json" set:html={JSON.stringify(costSchema)}></script>
     </head>
     <body>
         <Header />

@@ -48,6 +48,7 @@ const hospitals = [
 const hospitalSchema = {
     "@context": "https://schema.org",
     "@type": "Hospital",
+    "@id": new URL("/hospitals", Astro.site).toString(),
     "name": "Top Hospitals in India for Medical Tourism",
     "description": "Leading hospitals in India offering world-class medical treatment for international patients",
     "hasCredential": [
@@ -59,11 +60,15 @@ const hospitalSchema = {
             "@type": "EducationalOccupationalCredential",
             "credentialCategory": "NABH Accreditation"
         }
-    ],    "department": hospitals.map(hospital => ({
+    ],
+    "department": hospitals.map(hospital => ({
         "@type": "MedicalClinic",
         "name": hospital.name,
         "description": hospital.description,
-        "medicalSpecialty": hospital.specialties,
+        "medicalSpecialty": hospital.specialties.map(s => ({
+            "@type": "MedicalSpecialty",
+            "name": s
+        })),
         "address": {
             "@type": "PostalAddress",
             "addressCountry": "IN",
@@ -81,7 +86,13 @@ const hospitalSchema = {
             "image": doctor.image
         }))
     })),
-    "medicalSpecialty": ["Oncology", "Cardiology", "Orthopedics", "Neurology"]
+    "medicalSpecialty": [
+        {"@type": "MedicalSpecialty", "name": "Oncology"},
+        {"@type": "MedicalSpecialty", "name": "Cardiology"},
+        {"@type": "MedicalSpecialty", "name": "Orthopedics"},
+        {"@type": "MedicalSpecialty", "name": "Neurology"}
+    ],
+    "inLanguage": "en"
 };
 ---
 
@@ -92,10 +103,7 @@ const hospitalSchema = {
             title="Best Hospitals in India for Medical Tourism | JCI Accredited"
             description="Discover top hospitals in India offering world-class medical treatment. JCI accredited facilities, experienced doctors & affordable healthcare packages."
             keywords="hospitals in India, medical tourism hospitals, JCI accredited hospitals, best hospitals India, international patient care"
-        />
-    <script type="application/ld+json">
-        {JSON.stringify(hospitalSchema)}
-    </script>
+        />    <script type="application/ld+json" set:html={JSON.stringify(hospitalSchema)}></script>
 
     </head>
     <body>

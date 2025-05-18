@@ -32,49 +32,58 @@ const structuredData =
         "@context": "https://schema.org",
         "@type": "Article",
         "headline": title,
-        "image": [seoImage.href],
+        "name": title,
+        "articleBody": description,
+        "image": {
+          "@type": "ImageObject",
+          "url": seoImage.href,
+          "width": "1200",
+          "height": "630"
+        },
         "datePublished": publishDate ? publishDate.toISOString() : new Date().toISOString(),
         "dateModified": publishDate ? publishDate.toISOString() : new Date().toISOString(),
         "author": {
           "@type": "Organization",
           "name": author,
-          "url": Astro.site
+          "@id": new URL("/", Astro.site).toString()
         },
         "publisher": {
           "@type": "Organization",
           "name": SITE_TITLE,
+          "@id": new URL("/", Astro.site).toString(),
           "logo": {
             "@type": "ImageObject",
-            "url": new URL("/favicon.svg", Astro.site).href,
+            "url": new URL("/favicon.svg", Astro.site).toString(),
             "width": "512",
             "height": "512"
           }
         },
         "description": description,
+        "url": canonicalURL.toString(),
         "mainEntityOfPage": {
           "@type": "WebPage",
-          "@id": canonicalURL
+          "@id": canonicalURL.toString()
         }
       }
     : {
         "@context": "https://schema.org",
-        "@type": ["MedicalTourismAgency", "Organization"],
+        "@type": "MedicalBusiness",
+        "@id": new URL("/", Astro.site).toString(),
         "name": SITE_TITLE,
-        "url": Astro.site,
-        "alternateName": "Nirog Yatra Medical Tourism", // Add alternate name if applicable
+        "url": new URL("/", Astro.site).toString(),
         "logo": {
           "@type": "ImageObject",
-          "url": new URL("/favicon.svg", Astro.site).href,
-          "width": "512",
-          "height": "512"
+          "url": new URL("/favicon.svg", Astro.site).toString(),
+          "width": 512,
+          "height": 512
         },
-        "image": [
-          new URL("/images/hospital-front.jpg", Astro.site).href,
-          new URL("/images/surgery-room.jpg", Astro.site).href,
-          new URL("/images/patient-care.jpg", Astro.site).href
-        ],
+        "image": {
+          "@type": "ImageObject",
+          "url": new URL("/images/hospital-front.jpg", Astro.site).toString(),
+          "width": 1200,
+          "height": 630
+        },
         "description": description,
-        "@id": Astro.site,
         "address": {
           "@type": "PostalAddress",
           "streetAddress": "Medical Tourism Complex",
@@ -89,76 +98,24 @@ const structuredData =
           "longitude": "77.2090"
         },
         "telephone": "+91-8076929271",
-        "email": "info@nirogyatra.com", // Add your email address
+        "priceRange": "$$",
+        "email": "care@nirogyatra.com",
         "contactPoint": [
           {
             "@type": "ContactPoint",
             "telephone": "+91-8076929271",
             "contactType": "customer service",
-            "areaServed": ["IN", "AE", "KE", "NG", "BD"],
-            "availableLanguage": ["English", "Hindi", "Arabic"]
+            "contactOption": "TollFree",
+            "areaServed": ["IN"],
+            "availableLanguage": ["English", "Hindi"]
           }
         ],
-        "medicalSpecialty": [
-          "http://schema.org/Oncology",
-          "http://schema.org/Cardiology",
-          "http://schema.org/Orthopedics"
-          // Add more relevant medical specialties
+        "sameAs": [
+          "https://facebook.com/nirogyatra",
+          "https://twitter.com/nirogyatra",
+          "https://linkedin.com/company/nirogyatra"
         ],
-        "hasOfferCatalog": {
-          "@type": "OfferCatalog",
-          "name": "Medical Tourism Services",
-          "itemListElement": [
-            {
-              "@type": "MedicalTherapy",
-              "name": "Cancer Treatment",
-              "description": "Comprehensive cancer care including chemotherapy and radiation therapy",
-              "medicineSystem": "http://schema.org/WesternConventional",
-              "relevantSpecialty": "http://schema.org/Oncology",
-              "availableService": [
-                {
-                  "@type": "MedicalProcedure",
-                  "name": "Chemotherapy",
-                  "procedureType": "http://schema.org/TherapeuticProcedure"
-                  // Optionally add a URL to the specific procedure page: "url": "/cancer-treatment/chemotherapy"
-                },
-                {
-                  "@type": "MedicalProcedure",
-                  "name": "Radiation Therapy",
-                  "procedureType": "http://schema.org/RadiationTherapy"
-                  // Optionally add a URL: "url": "/cancer-treatment/radiation-therapy"
-                }
-              ]
-            },
-            {
-              "@type": "MedicalTherapy",
-              "name": "Cardiac Care",
-              "description": "Advanced cardiac procedures including bypass and valve surgery",
-              "medicineSystem": "http://schema.org/WesternConventional",
-              "relevantSpecialty": "http://schema.org/Cardiology",
-              "availableService": [
-                {
-                  "@type": "MedicalProcedure",
-                  "name": "Coronary Bypass Surgery",
-                  "procedureType": "http://schema.org/SurgicalProcedure"
-                  // Optionally add a URL: "url": "/cardiac-care/bypass-surgery"
-                }
-              ]
-            },
-            // Add more medical therapies and procedures as needed
-          ]
-        },
-        "hasCredential": [
-          {
-            "@type": "EducationalOccupationalCredential",
-            "credentialCategory": "Medical Tourism Certification",
-            "recognizedBy": {
-              "@type": "Organization",
-              "name": "Joint Commission International" // Replace with the actual certifying body if different
-            }
-          }
-          // Add more relevant credentials if any
-        ]
+        "inLanguage": "en"
       };
 ---
 
@@ -248,11 +205,7 @@ const structuredData =
     <script
       async
       src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_ACTUAL_ADSENSE_ID"
-      crossorigin="anonymous"></script>
-
-    <script is:inline type="application/ld+json">
-      {structuredData}
-    </script>
+      crossorigin="anonymous"></script>    <script type="application/ld+json" set:html={JSON.stringify(structuredData)}></script>
 
     <script nonce="astro">
       (function () {

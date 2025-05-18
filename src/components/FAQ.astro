@@ -20,11 +20,20 @@ const faqSchema = {
     "mainEntity": faqs.map(faq => ({
         "@type": "Question",
         "name": faq.question,
+        "inLanguage": "en",
+        "dateCreated": new Date().toISOString(),
         "acceptedAnswer": {
             "@type": "Answer",
-            "text": faq.answer
+            "text": faq.answer,
+            "dateCreated": new Date().toISOString(),
+            "upvoteCount": 1
         }
-    }))
+    })),
+    "publisher": {
+        "@type": "Organization",
+        "name": "NirogYatra",
+        "@id": new URL("/", Astro.site).toString()
+    }
 };
 ---
 
@@ -57,9 +66,7 @@ const faqSchema = {
     </div>
 </section>
 
-<script type="application/ld+json">
-    {JSON.stringify(faqSchema)}
-</script>
+<script type="application/ld+json" set:html={JSON.stringify(faqSchema)}></script>
 
 <style>
     .faq-section {

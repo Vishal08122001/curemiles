@@ -16,8 +16,35 @@ export const generateMedicalTourismSchema = (data?: any) => ({
         "https://nirogyatra.com/images/hospital-front.jpg",
         "https://nirogyatra.com/images/surgery-room.jpg",
         "https://nirogyatra.com/images/patient-care.jpg"
+    ],    "description": "Leading medical tourism facilitator in India offering affordable cancer treatment, cardiac surgery, and wellness packages for international patients. JCI and NABH accredited hospitals with world-class medical care.",
+    "certification": [
+        {
+            "@type": "Certification",
+            "name": "Joint Commission International (JCI) Accreditation",
+            "issuedBy": {
+                "@type": "Organization",
+                "name": "Joint Commission International",
+                "url": "https://www.jointcommissioninternational.org/"
+            },
+            "validUntil": "2026-12-31"
+        },
+        {
+            "@type": "Certification",
+            "name": "National Accreditation Board for Hospitals & Healthcare Providers (NABH)",
+            "issuedBy": {
+                "@type": "Organization",
+                "name": "Quality Council of India",
+                "url": "https://nabh.co/"
+            },
+            "validUntil": "2026-12-31"
+        }
     ],
-    "description": "Leading medical tourism facilitator in India offering affordable cancer treatment, cardiac surgery, and wellness packages for international patients. JCI and NABH accredited hospitals with world-class medical care.",
+    "healthcareReportingRequirements": [
+        "International Patient Safety Goals",
+        "Quality Healthcare Metrics",
+        "Patient Experience Surveys",
+        "Clinical Outcome Reports"
+    ],
     "medicalSpecialty": [
         "http://schema.org/Oncology",
         "http://schema.org/Cardiology",

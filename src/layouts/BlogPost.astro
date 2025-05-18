@@ -6,7 +6,7 @@ import Footer from "../components/Footer.astro";
 import FormattedDate from "../components/FormattedDate.astro";
 import AdSense from "../components/AdSense.astro";
 import TreatmentCostForm from "../components/TreatmentCostForm.astro";
-import { SITE_TITLE } from "../consts";
+import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
 
 type Props = CollectionEntry<"blog">["data"];
 
@@ -15,148 +15,169 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 // Generate schema.org structured data
 const articleSchema = {
 	"@context": "https://schema.org",
-	"@type": ["Article", "MedicalWebPage"],
-	headline: title,
-	description: description,
-	image: heroImage ? [new URL(heroImage, Astro.site)] : undefined,
-	datePublished: pubDate.toISOString(),
-	dateModified: updatedDate?.toISOString() || pubDate.toISOString(),
-	author: {
+	"@type": ["BlogPosting", "MedicalWebPage"],
+	"@id": Astro.url.toString(),
+	"headline": title,
+	"name": title,
+	"description": description,
+	"articleBody": description,
+	"wordCount": description.split(' ').length,
+	"inLanguage": "en",
+	"articleSection": "Medical Tourism",
+	"specialty": ["Medical Tourism", "International Healthcare"],
+	"about": {
+		"@type": "MedicalSpecialty",
+		"name": "Medical Tourism",
+		"url": new URL("/treatments", Astro.site).toString()
+	},
+	"audience": {
+		"@type": "MedicalAudience",
+		"audienceType": "International Patients",
+		"geographicArea": ["Africa", "Middle East", "Southeast Asia"]
+	},
+	"image": {
+		"@type": "ImageObject",
+		"url": heroImage ? new URL(heroImage, Astro.site).toString() : new URL("/og-image.jpg", Astro.site).toString(),
+		"width": "1200",
+		"height": "630"
+	},
+	"datePublished": pubDate.toISOString(),
+	"dateModified": updatedDate ? updatedDate.toISOString() : pubDate.toISOString(),
+	"author": {
 		"@type": "Organization",
-		name: SITE_TITLE,
-		url: Astro.site,
-		logo: {
+		"name": SITE_TITLE,
+		"@id": new URL("/", Astro.site).toString()
+	},
+	"publisher": {
+		"@type": "Organization",
+		"name": SITE_TITLE,
+		"@id": new URL("/", Astro.site).toString(),
+		"logo": {
 			"@type": "ImageObject",
-			url: new URL("/favicon.svg", Astro.site)
+			"url": new URL("/favicon.svg", Astro.site).toString(),
+			"width": "512",
+			"height": "512"
 		}
 	},
-	publisher: {
-		"@type": "Organization",
-		name: SITE_TITLE,
-		logo: {
-			"@type": "ImageObject",
-			url: new URL("/favicon.svg", Astro.site),
-			width: "512",
-			height: "512"
-		}
-	},
-	mainEntityOfPage: {
+	"url": Astro.url.toString(),
+	"mainEntityOfPage": {
 		"@type": "WebPage",
-		"@id": Astro.url,
-		breadcrumb: {
-			"@type": "BreadcrumbList",
-			itemListElement: [
-				{
-					"@type": "ListItem",
-					position: 1,
-					item: {
-						"@id": Astro.site,
-						name: "Home"
-					}
-				},
-				{
-					"@type": "ListItem",
-					position: 2,
-					item: {
-						"@id": new URL("/blog", Astro.site),
-						name: "Blog"
-					}
-				},
-				{
-					"@type": "ListItem",
-					position: 3,
-					item: {
-						"@id": Astro.url,
-						name: title
-					}
-				}
-			]
-		}
+		"@id": Astro.url.toString()
 	},
-	about: {
-		"@type": "MedicalCondition",
-		name: title,
-		description: description
-	},
-	specialty: "Medical Tourism",
-	audience: {
-		"@type": "Audience",
-		audienceType: "International Patients"
-	},
-	keywords: ["medical tourism", "healthcare in India", "affordable treatment"],
-	isAccessibleForFree: true,
-	license: "https://creativecommons.org/licenses/by-nc-sa/4.0/"
+	"keywords": ["medical tourism", "healthcare in India", "international patients", "medical procedures"],
+	"inLanguage": "en"
 };
 
-// Medical tourism specific schema
-const medicalServiceSchema = {
+const websiteSchema = {
 	"@context": "https://schema.org",
-	"@type": ["Organization", "MedicalBusiness", "MedicalClinic"],
-	name: SITE_TITLE,
-	image: [
-		new URL("/images/hospital-front.jpg", Astro.site),
-		new URL("/images/surgery-room.jpg", Astro.site),
-		new URL("/images/patient-care.jpg", Astro.site)
+	"@type": "WebSite",
+	"@id": new URL("/", Astro.site).toString(),
+	"url": new URL("/", Astro.site).toString(),
+	"name": SITE_TITLE,
+	"description": SITE_DESCRIPTION,
+	"publisher": {
+		"@type": "Organization",
+		"name": SITE_TITLE,
+		"@id": new URL("/", Astro.site).toString()
+	}
+};
+
+const organizationSchema = {
+	"@context": "https://schema.org",
+	"@type": ["Organization", "MedicalBusiness"],
+	"@id": new URL("/", Astro.site).toString(),
+	"name": SITE_TITLE,
+	"url": new URL("/", Astro.site).toString(),
+	"logo": {
+		"@type": "ImageObject",
+		"url": new URL("/favicon.svg", Astro.site).toString(),
+		"width": "512",
+		"height": "512"
+	},
+	"image": [
+		new URL("/images/hospital-front.jpg", Astro.site).toString(),
+		new URL("/images/surgery-room.jpg", Astro.site).toString()
 	],
-	"@id": Astro.site,
-	url: Astro.site,
-	contactPoint: [
-		{
-			"@type": "ContactPoint",
-			telephone: "+91-8076929271",
-			contactType: "customer service",
-			areaServed: ["IN", "AE", "KE", "NG", "BD"],
-			availableLanguage: ["English", "Hindi", "Arabic"]
-		},
-		{
-			"@type": "ContactPoint",
-			telephone: "+91-8076929271",
-			contactType: "emergency",
-			availableLanguage: ["English", "Hindi"]
-		}
-	],
-	priceRange: "$$",
-	address: {
+	"description": SITE_DESCRIPTION,
+	"address": {
 		"@type": "PostalAddress",
-		streetAddress: "Medical Tourism Complex",
-		addressLocality: "New Delhi",
-		addressCountry: "IN",
-		addressRegion: "Delhi NCR",
-		postalCode: "110001"
+		"streetAddress": "Medical Tourism Complex",
+		"addressLocality": "New Delhi",
+		"addressRegion": "Delhi",
+		"postalCode": "110001",
+		"addressCountry": "IN"
 	},
-	geo: {
+	"geo": {
 		"@type": "GeoCoordinates",
-		latitude: "28.6139",
-		longitude: "77.2090"
+		"latitude": "28.6139",
+		"longitude": "77.2090"
 	},
-	medicalSpecialty: [
+	"telephone": "+91-8076929271",
+	"contactPoint": [{
+		"@type": "ContactPoint",
+		"telephone": "+91-8076929271",
+		"contactType": "customer service",
+		"areaServed": ["IN", "AE", "KE", "NG", "BD"],
+		"availableLanguage": ["English", "Hindi", "Arabic"],
+		"email": "care@nirogyatra.com"
+	}],
+	"sameAs": [
+		"https://facebook.com/nirogyatra",
+		"https://twitter.com/nirogyatra",
+		"https://linkedin.com/company/nirogyatra"
+	],
+	"medicalSpecialty": [
 		"http://schema.org/Oncology",
 		"http://schema.org/Cardiology",
-		"http://schema.org/Orthopedics",
-		"http://schema.org/PhysicalTherapy"
+		"http://schema.org/Orthopedics"
 	],
-	availableService: [
+	"availableService": [
 		{
 			"@type": "MedicalTherapy",
-			name: "Cancer Treatment",
-			medicineSystem: "http://schema.org/WesternConventional",
-			relevantSpecialty: "http://schema.org/Oncology"
+			"name": "Cancer Treatment",
+			"description": "Comprehensive cancer care including chemotherapy and radiation therapy",
+			"medicineSystem": "http://schema.org/WesternConventional",
+			"relevantSpecialty": "http://schema.org/Oncology"
 		},
 		{
 			"@type": "MedicalTherapy",
-			name: "Cardiac Care",
-			medicineSystem: "http://schema.org/WesternConventional",
-			relevantSpecialty: "http://schema.org/Cardiology"
+			"name": "Cardiac Care",
+			"description": "Advanced cardiac procedures including bypass and valve surgery",
+			"medicineSystem": "http://schema.org/WesternConventional",
+			"relevantSpecialty": "http://schema.org/Cardiology"
 		}
 	],
-	hasCredential: [
+	"hasCredential": [{
+		"@type": "EducationalOccupationalCredential",
+		"credentialCategory": "Medical Tourism Certification",
+		"recognizedBy": {
+			"@type": "Organization",
+			"name": "Joint Commission International"
+		}
+	}]
+};
+
+const breadcrumbSchema = {
+	"@context": "https://schema.org",
+	"@type": "BreadcrumbList",
+	"itemListElement": [
 		{
-			"@type": "EducationalOccupationalCredential",
-			credentialCategory: "JCI Accreditation"
+			"@type": "ListItem",
+			"position": 1,
+			"name": "Home",
+			"item": new URL("/", Astro.site).toString()
 		},
 		{
-			"@type": "EducationalOccupationalCredential",
-			credentialCategory: "NABH Accreditation"
+			"@type": "ListItem",
+			"position": 2,
+			"name": "Blog",
+			"item": new URL("/blog", Astro.site).toString()
+		},
+		{
+			"@type": "ListItem",
+			"position": 3,
+			"name": title,
+			"item": Astro.url.toString()
 		}
 	]
 };
@@ -178,10 +199,10 @@ const medicalServiceSchema = {
 		/>
 
 		<!-- Structured Data -->
-		<script type="application/ld+json" set:html={JSON.stringify(articleSchema)}>
-		</script>
-		<script type="application/ld+json" set:html={JSON.stringify(medicalServiceSchema)}>
-		</script>
+		<script type="application/ld+json" set:html={JSON.stringify(articleSchema)}></script>
+		<script type="application/ld+json" set:html={JSON.stringify(websiteSchema)}></script>
+		<script type="application/ld+json" set:html={JSON.stringify(organizationSchema)}></script>
+		<script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)}></script>
 	</head>
 
 	<body>
