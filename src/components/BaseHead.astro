@@ -37,8 +37,8 @@ const structuredData =
         "image": {
           "@type": "ImageObject",
           "url": seoImage.href,
-          "width": "1200",
-          "height": "630"
+          "width": 1200,
+          "height": 630
         },
         "datePublished": publishDate ? publishDate.toISOString() : new Date().toISOString(),
         "dateModified": publishDate ? publishDate.toISOString() : new Date().toISOString(),
@@ -54,8 +54,8 @@ const structuredData =
           "logo": {
             "@type": "ImageObject",
             "url": new URL("/favicon.svg", Astro.site).toString(),
-            "width": "512",
-            "height": "512"
+            "width": 512,
+            "height": 512
           }
         },
         "description": description,
@@ -94,8 +94,8 @@ const structuredData =
         },
         "geo": {
           "@type": "GeoCoordinates",
-          "latitude": "28.6139",
-          "longitude": "77.2090"
+          "latitude": 28.6139,
+          "longitude": 77.2090
         },
         "telephone": "+91-8076929271",
         "priceRange": "$$",
@@ -121,11 +121,6 @@ const structuredData =
 
 <html lang="en">
   <head>
-    <meta
-      http-equiv="Content-Security-Policy"
-      content="default-src 'self'; script-src 'self' 'nonce-astro' https://www.googletagmanager.com https://pagead2.googlesyndication.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self'; connect-src 'self' https://www.google-analytics.com; frame-src https://www.youtube.com;"
-    />
-
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -133,36 +128,6 @@ const structuredData =
     <link rel="manifest" href="/site.webmanifest" />
     <meta name="theme-color" content="#3B82F6" />
     <link rel="sitemap" href="/sitemap-index.xml" />
-    <link
-      rel="alternate"
-      type="application/rss+xml"
-      title={SITE_TITLE}
-      href={new URL("rss.xml", Astro.site)}
-    />
-    <meta name="generator" content={Astro.generator} />
-
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preconnect" href="https://pagead2.googlesyndication.com" />
-    <link rel="preconnect" href="https://www.googletagmanager.com" />
-
-    <link
-      rel="preload"
-      href="/fonts/atkinson-regular.woff"
-      as="font"
-      type="font/woff"
-      crossorigin
-      fetchpriority="high"
-    />
-    <link
-      rel="preload"
-      href="/fonts/atkinson-bold.woff"
-      as="font"
-      type="font/woff"
-      crossorigin
-      fetchpriority="high"
-    />
-
     <link rel="canonical" href={canonicalURL} />
 
     <title>{title}</title>
@@ -202,11 +167,16 @@ const structuredData =
     <meta name="geo.position" content="20.5937;78.9629" />
     <meta name="ICBM" content="20.5937, 78.9629" />
 
+    <!-- Ads -->
     <script
       async
       src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_ACTUAL_ADSENSE_ID"
-      crossorigin="anonymous"></script>    <script type="application/ld+json" set:html={JSON.stringify(structuredData)}></script>
+      crossorigin="anonymous"></script>
 
+    <!-- ✅ Corrected Structured Data -->
+    <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+
+    <!-- GTM Consent Mode -->
     <script nonce="astro">
       (function () {
         window.dataLayer = window.dataLayer || [];
