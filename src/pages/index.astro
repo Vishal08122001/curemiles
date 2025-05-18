@@ -1,99 +1,101 @@
 ---
-import BaseHead from '../components/BaseHead.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
-import FAQ from '../components/FAQ.astro';
-import TreatmentCostForm from '../components/TreatmentCostForm.astro';
-import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
-import { getCollection } from 'astro:content';
-import FormattedDate from '../components/FormattedDate.astro';
-import CookieConsent from '../components/CookieConsent.astro';
+import BaseHead from "../components/BaseHead.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import FAQ from "../components/FAQ.astro";
+import TreatmentCostForm from "../components/TreatmentCostForm.astro";
+import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
+import { getCollection } from "astro:content";
+import FormattedDate from "../components/FormattedDate.astro";
+import CookieConsent from "../components/CookieConsent.astro";
 
-const posts = (await getCollection('blog')).sort(
-	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
-).slice(0, 3);
+const posts = (await getCollection("blog"))
+	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+	.slice(0, 3);
 
 const websiteSchema = {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    "@id": new URL("/", Astro.site).toString(),
-    "url": new URL("/", Astro.site).toString(),
-    "name": SITE_TITLE,
-    "description": SITE_DESCRIPTION,
-    "publisher": {
-        "@type": "Organization",
-        "name": SITE_TITLE,
-        "@id": new URL("/", Astro.site).toString()
-    },
-    "inLanguage": "en"
+	"@context": "https://schema.org",
+	"@type": "WebSite",
+	"@id": new URL("/", Astro.site).toString(),
+	url: new URL("/", Astro.site).toString(),
+	name: SITE_TITLE,
+	description: SITE_DESCRIPTION,
+	publisher: {
+		"@type": "Organization",
+		name: SITE_TITLE,
+		"@id": new URL("/", Astro.site).toString(),
+	},
+	inLanguage: "en",
 };
 
 const organizationSchema = {
-    "@context": "https://schema.org",
-    "@type": ["Organization", "MedicalBusiness", "LocalBusiness"],
-    "@id": new URL("/", Astro.site).toString(),
-    "name": SITE_TITLE,
-    "url": new URL("/", Astro.site).toString(),
-    "logo": {
-        "@type": "ImageObject",
-        "url": new URL("/favicon.svg", Astro.site).toString(),
-        "width": 512,
-        "height": 512,
-        "caption": SITE_TITLE + " Logo"
-    },
-    "image": [
-        new URL("/images/hospital-front.jpg", Astro.site).toString(),
-        new URL("/images/surgery-room.jpg", Astro.site).toString()
-    ],
-    "description": SITE_DESCRIPTION,
-    "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "Medical Tourism Complex",
-        "addressLocality": "New Delhi",
-        "addressRegion": "Delhi",
-        "postalCode": "110001",
-        "addressCountry": "IN"
-    },
-    "geo": {
-        "@type": "GeoCoordinates",
-        "latitude": "28.6139",
-        "longitude": "77.2090"
-    },
-    "telephone": "+91-8076929271",
-    "priceRange": "$$",
-    "contactPoint": [
-        {
-            "@type": "ContactPoint",
-            "telephone": "+91-8076929271",
-            "contactType": "customer service",
-            "contactOption": "TollFree",
-            "areaServed": ["IN", "AE", "KE", "NG", "BD"],
-            "availableLanguage": ["English", "Hindi", "Arabic"]
-        }
-    ],
-    "sameAs": [
-        "https://facebook.com/nirogyatra",
-        "https://twitter.com/nirogyatra",
-        "https://linkedin.com/company/nirogyatra"
-    ],
-    "inLanguage": "en"
+	"@context": "https://schema.org",
+	"@type": ["Organization", "MedicalBusiness", "LocalBusiness"],
+	"@id": new URL("/", Astro.site).toString(),
+	name: SITE_TITLE,
+	url: new URL("/", Astro.site).toString(),
+	logo: {
+		"@type": "ImageObject",
+		url: new URL("/favicon.svg", Astro.site).toString(),
+		width: 512,
+		height: 512,
+		caption: `${SITE_TITLE} Logo`,
+	},
+	image: [
+		new URL("/images/hospital-front.jpg", Astro.site).toString(),
+		new URL("/images/surgery-room.jpg", Astro.site).toString(),
+	],
+	description: SITE_DESCRIPTION,
+	address: {
+		"@type": "PostalAddress",
+		streetAddress: "Medical Tourism Complex",
+		addressLocality: "New Delhi",
+		addressRegion: "Delhi",
+		postalCode: "110001",
+		addressCountry: "IN",
+	},
+	geo: {
+		"@type": "GeoCoordinates",
+		latitude: 28.6139,
+		longitude: 77.209,
+	},
+	telephone: "+91-8076929271",
+	priceRange: "$$",
+	contactPoint: [
+		{
+			"@type": "ContactPoint",
+			telephone: "+91-8076929271",
+			contactType: "customer service",
+			contactOption: "TollFree",
+			areaServed: ["IN", "AE", "KE", "NG", "BD"],
+			availableLanguage: ["English", "Hindi", "Arabic"],
+		},
+	],
+	sameAs: [
+		"https://facebook.com/nirogyatra",
+		"https://twitter.com/nirogyatra",
+		"https://linkedin.com/company/nirogyatra",
+	],
+	inLanguage: "en",
 };
 
 const articlesSchema = {
-    "@context": "https://schema.org",
-    "@type": "ItemList",
-    "itemListElement": posts.map((post, index) => ({
-        "@type": "ListItem",
-        "position": index + 1,
-        "item": {
-            "@type": "BlogPosting",
-            "headline": post.data.title,
-            "description": post.data.description,
-            "datePublished": post.data.pubDate.toISOString(),
-            "dateModified": post.data.updatedDate ? post.data.updatedDate.toISOString() : post.data.pubDate.toISOString(),
-            "url": new URL(`/blog/${post.id}`, Astro.site).toString()
-        }
-    }))
+	"@context": "https://schema.org",
+	"@type": "ItemList",
+	itemListElement: posts.map((post, index) => ({
+		"@type": "ListItem",
+		position: index + 1,
+		item: {
+			"@type": "BlogPosting",
+			headline: post.data.title,
+			description: post.data.description,
+			datePublished: post.data.pubDate.toISOString(),
+			dateModified: post.data.updatedDate
+				? post.data.updatedDate.toISOString()
+				: post.data.pubDate.toISOString(),
+			url: new URL(`/blog/${post.id}`, Astro.site).toString(),
+		},
+	})),
 };
 ---
 
@@ -101,39 +103,80 @@ const articlesSchema = {
 <html lang="en">
 	<head>
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-		<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+			rel="stylesheet"
+		/>
 		<script src="/scripts/cookie-consent.js" is:inline></script>
-		
-		<script type="application/ld+json" set:html={JSON.stringify(websiteSchema)}></script>
-		<script type="application/ld+json" set:html={JSON.stringify(organizationSchema)}></script>
-		<script type="application/ld+json" set:html={JSON.stringify(articlesSchema)}></script>
+
+		<script
+			type="application/ld+json"
+			set:html={JSON.stringify(websiteSchema)}
+		/>
+		<script
+			type="application/ld+json"
+			set:html={JSON.stringify(organizationSchema)}
+		/>
+		<script
+			type="application/ld+json"
+			set:html={JSON.stringify(articlesSchema)}
+		/>
 	</head>
 	<body>
 		<Header />
-		
+
 		<main>
 			<!-- Hero Section -->
 			<section class="hero">
 				<div class="container hero-container">
 					<div class="hero-content">
 						<h1>Transform Your Health Journey</h1>
-						<p>Explore expert blogs on medical tourism in India, covering cancer treatment, cardiac care, and wellness packages. Designed for international patients from Africa, the Middle East, and Southeast Asia looking for trusted, affordable healthcare options.</p>
+						<p>
+							Explore expert blogs on medical tourism in India,
+							covering cancer treatment, cardiac care, and
+							wellness packages. Designed for international
+							patients from Africa, the Middle East, and Southeast
+							Asia looking for trusted, affordable healthcare
+							options.
+						</p>
 						<div class="hero-buttons">
 							<a href="/blog" class="btn btn-primary">
 								Explore Articles
-								<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-									<path d="M5 12h14M12 5l7 7-7 7"/>
+								<svg
+									width="20"
+									height="20"
+									viewBox="0 0 24 24"
+									fill="none"
+									stroke="currentColor"
+									stroke-width="2"
+								>
+									<path d="M5 12h14M12 5l7 7-7 7"></path>
 								</svg>
 							</a>
-							<a href="/about" class="btn btn-outline">Learn More</a>
+							<a href="/about" class="btn btn-outline"
+								>Learn More</a
+							>
 						</div>
 					</div>
 					<div class="hero-image">
 						<div class="gradient-circle"></div>
-						<svg width="400" height="400" viewBox="0 0 400 400" fill="none">
-							<path d="M200 40L40 120L200 200L360 120L200 40Z" fill="var(--primary)"/>
-							<path d="M40 200L200 280L360 200" stroke="var(--accent)" stroke-width="4"/>
-							<path d="M40 280L200 360L360 280" stroke="var(--secondary)" stroke-width="4"/>
+						<svg
+							width="400"
+							height="400"
+							viewBox="0 0 400 400"
+							fill="none"
+						>
+							<path
+								d="M200 40L40 120L200 200L360 120L200 40Z"
+								fill="var(--primary)"></path>
+							<path
+								d="M40 200L200 280L360 200"
+								stroke="var(--accent)"
+								stroke-width="4"></path>
+							<path
+								d="M40 280L200 360L360 280"
+								stroke="var(--secondary)"
+								stroke-width="4"></path>
 						</svg>
 					</div>
 				</div>
@@ -144,26 +187,45 @@ const articlesSchema = {
 				<div class="container">
 					<h2>Latest Insights</h2>
 					<div class="grid">
-						{posts.map(post => (
-							<article class="post-card">
-								<a href={`/blog/${post.id}/`}>
-									<img src={post.data.heroImage || '/blog-placeholder-1.jpg'} alt={post.data.title} />
-									<div class="post-content">
-										<time datetime={post.data.pubDate.toISOString()}>
-											<FormattedDate date={post.data.pubDate} />
-										</time>
-										<h3>{post.data.title}</h3>
-										<p>{post.data.description}</p>
-										<span class="read-more">
-											Read More
-											<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-												<path d="M5 12h14M12 5l7 7-7 7"/>
-											</svg>
-										</span>
-									</div>
-								</a>
-							</article>
-						))}
+						{
+							posts.map((post) => (
+								<article class="post-card">
+									<a href={`/blog/${post.id}/`}>
+										<img
+											src={
+												post.data.heroImage ||
+												"/blog-placeholder-1.jpg"
+											}
+											alt={post.data.title}
+										/>
+										<div class="post-content">
+											<time
+												datetime={post.data.pubDate.toISOString()}
+											>
+												<FormattedDate
+													date={post.data.pubDate}
+												/>
+											</time>
+											<h3>{post.data.title}</h3>
+											<p>{post.data.description}</p>
+											<span class="read-more">
+												Read More
+												<svg
+													width="20"
+													height="20"
+													viewBox="0 0 24 24"
+													fill="none"
+													stroke="currentColor"
+													stroke-width="2"
+												>
+													<path d="M5 12h14M12 5l7 7-7 7" />
+												</svg>
+											</span>
+										</div>
+									</a>
+								</article>
+							))
+						}
 					</div>
 				</div>
 			</section>
@@ -176,52 +238,68 @@ const articlesSchema = {
 						<div class="feature-card">
 							<div class="icon">💡</div>
 							<h3>Expert Insights</h3>
-							<p>Cutting-edge analysis and actionable strategies from industry experts.</p>
+							<p>
+								Cutting-edge analysis and actionable strategies
+								from industry experts.
+							</p>
 						</div>
 						<div class="feature-card">
 							<div class="icon">📈</div>
 							<h3>Growth Focused</h3>
-							<p>Data-driven approaches to accelerate your business growth.</p>
+							<p>
+								Data-driven approaches to accelerate your
+								business growth.
+							</p>
 						</div>
 						<div class="feature-card">
 							<div class="icon">🚀</div>
 							<h3>Innovation First</h3>
-							<p>Stay ahead with the latest digital trends and technologies.</p>
+							<p>
+								Stay ahead with the latest digital trends and
+								technologies.
+							</p>
 						</div>
 					</div>
 				</div>
 			</section>
 
-			<!-- FAQ and Lead Form Section -->			<section class="faq-form-section">
+			<!-- FAQ and Lead Form Section -->
+			<section class="faq-form-section">
 				<div class="container faq-form-container">
 					<div class="faq-section">
 						<FAQ
 							title="FAQs"
 							faqs={[
 								{
-									question: "How much can I save on medical treatment in India?",
-									answer: "International patients typically save 60-80% on medical treatments in India compared to the US, UK, or Singapore. For example, a heart bypass that costs $100,000 in the US would cost around $10,000-15,000 in India, including all medical expenses and stay."
+									question:
+										"How much can I save on medical treatment in India?",
+									answer: "International patients typically save 60-80% on medical treatments in India compared to the US, UK, or Singapore. For example, a heart bypass that costs $100,000 in the US would cost around $10,000-15,000 in India, including all medical expenses and stay.",
 								},
 								{
-									question: "Are Indian hospitals internationally accredited?",
-									answer: "Yes, many Indian hospitals are accredited by Joint Commission International (JCI) and National Accreditation Board for Hospitals (NABH). These hospitals follow international protocols and standards for patient care and safety."
+									question:
+										"Are Indian hospitals internationally accredited?",
+									answer: "Yes, many Indian hospitals are accredited by Joint Commission International (JCI) and National Accreditation Board for Hospitals (NABH). These hospitals follow international protocols and standards for patient care and safety.",
 								},
 								{
-									question: "How do I get a medical visa for India?",
-									answer: "We assist in obtaining a medical visa for you and your companion. The process typically takes 3-5 working days. Required documents include a letter from the treating hospital, passport copies, and medical reports."
+									question:
+										"How do I get a medical visa for India?",
+									answer: "We assist in obtaining a medical visa for you and your companion. The process typically takes 3-5 working days. Required documents include a letter from the treating hospital, passport copies, and medical reports.",
 								},
 								{
-									question: "What support services do you provide?",
-									answer: "We provide end-to-end assistance including airport pickup, hospital appointments, accommodation booking, language interpretation, local transportation, and post-treatment follow-up care coordination."
+									question:
+										"What support services do you provide?",
+									answer: "We provide end-to-end assistance including airport pickup, hospital appointments, accommodation booking, language interpretation, local transportation, and post-treatment follow-up care coordination.",
 								},
 								{
-									question: "What are the success rates for cancer treatment in India?",
-									answer: "Success rates vary by cancer type and stage but are comparable to global standards. Early-stage cancers show 60-80% success rates. Indian oncologists are trained at top global institutions and use the latest treatment protocols."
-								}
+									question:
+										"What are the success rates for cancer treatment in India?",
+									answer: "Success rates vary by cancer type and stage but are comparable to global standards. Early-stage cancers show 60-80% success rates. Indian oncologists are trained at top global institutions and use the latest treatment protocols.",
+								},
 							]}
 						/>
-					</div>					<TreatmentCostForm 
-						formName="homepage-lead" 
+					</div>
+					<TreatmentCostForm
+						formName="homepage-lead"
 						className="homepage-form"
 						description="Our medical experts will provide you with a detailed cost estimate for your treatment in India."
 					/>
@@ -230,12 +308,16 @@ const articlesSchema = {
 		</main>
 
 		<Footer />
-		<CookieConsent/>
-		
+		<CookieConsent />
+
 		<style>
 			.hero {
 				padding: 4rem 0;
-				background: linear-gradient(to bottom right, var(--bg), var(--card-bg));
+				background: linear-gradient(
+					to bottom right,
+					var(--bg),
+					var(--card-bg)
+				);
 				position: relative;
 				overflow: hidden;
 			}
@@ -251,7 +333,11 @@ const articlesSchema = {
 				font-size: 3.5rem;
 				line-height: 1.1;
 				margin-bottom: 1.5rem;
-				background: linear-gradient(135deg, var(--text) 0%, var(--primary) 100%);
+				background: linear-gradient(
+					135deg,
+					var(--text) 0%,
+					var(--primary) 100%
+				);
 				-webkit-background-clip: text;
 				-webkit-text-fill-color: transparent;
 			}
@@ -390,7 +476,11 @@ const articlesSchema = {
 
 			.faq-form-section {
 				padding: 4rem 0;
-				background: linear-gradient(to bottom right, var(--bg), var(--card-bg));
+				background: linear-gradient(
+					to bottom right,
+					var(--bg),
+					var(--card-bg)
+				);
 			}
 
 			.faq-form-container {
@@ -428,7 +518,11 @@ const articlesSchema = {
 				font-size: 2rem;
 				text-align: center;
 				margin-bottom: 0.5rem;
-				background: linear-gradient(135deg, var(--primary), var(--accent));
+				background: linear-gradient(
+					135deg,
+					var(--primary),
+					var(--accent)
+				);
 				-webkit-background-clip: text;
 				background-clip: text;
 				-webkit-text-fill-color: transparent;
@@ -551,7 +645,7 @@ const articlesSchema = {
 				.form-submit:hover {
 					transform: none;
 				}
-				
+
 				.form-submit svg {
 					transition: none;
 				}
