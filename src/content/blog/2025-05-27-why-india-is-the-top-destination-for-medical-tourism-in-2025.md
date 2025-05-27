@@ -6,13 +6,13 @@ description: Discover why India is the top medical tourism destination in
   2025—offering world-class healthcare, expert doctors, and up to 90% cost
   savings on treatments like heart surgery, IVF, and more.
 ---
-India’s medical tourism sector is booming. In recent years the country has attracted millions of international patients seeking **[affordable healthcare in India](https://nirogyatra.com/blog/affordable-healthcare-in-india)** and world-class treatment. In fact, credit-rating agency CRISIL reports India saw about 7.3 million medical tourists in 2024 (up from 6.1 million in 2023). Patients from the US, UK, Africa and Gulf countries travel to India for procedures, drawn by a unique combination of low costs and high quality. For example, even uninsured Americans and Britons now seek care in India – about 1,911 US citizens and 785 UK citizens obtained medical visas in 2024. Gulf nations like Oman and the UAE often **sponsor treatment** for their citizens in India, since Indian hospitals charge far less than Western ones.
+India’s medical tourism sector is booming. In recent years the country has attracted millions of international patients seeking **[affordable healthcare in India](https://nirogyatra.com/blog)** and world-class treatment. In fact, credit-rating agency CRISIL reports India saw about 7.3 million medical tourists in 2024 (up from 6.1 million in 2023). Patients from the US, UK, Africa and Gulf countries travel to India for procedures, drawn by a unique combination of low costs and high quality. For example, even uninsured Americans and Britons now seek care in India – about 1,911 US citizens and 785 UK citizens obtained medical visas in 2024. Gulf nations like Oman and the UAE often **sponsor treatment** for their citizens in India, since Indian hospitals charge far less than Western ones.
 
 Several factors make India the *best country for medical tourism in 2025*. Indian hospitals offer **huge cost savings** (often 60–90% cheaper than the US/Europe), world-class facilities, short waiting times, and English-speaking staff. Below we explore these benefits in detail and explain why patients from around the globe are choosing India.
 
 ## Key Benefits: Cost, Quality, and Convenience
 
-- **Huge Cost Savings:** Medical procedures in India typically cost a fraction of Western prices. For example, **heart bypass surgery** may be just $5–15K in India (vs. $100K+ in the US), and **knee replacements** around $6–10K (vs. $50K+ in the US). Dental implants, IVF cycles and cosmetic surgeries are similarly 70–90% cheaper abroad. In short, **[affordable healthcare in India](https://nirogyatra.com/blog/affordable-healthcare-in-india)** means a 10–20x cost advantage on major treatments.
+- **Huge Cost Savings:** Medical procedures in India typically cost a fraction of Western prices. For example, **heart bypass surgery** may be just $5–15K in India (vs. $100K+ in the US), and **knee replacements** around $6–10K (vs. $50K+ in the US). Dental implants, IVF cycles and cosmetic surgeries are similarly 70–90% cheaper abroad. In short, **[affordable healthcare in India](https://nirogyatra.com/blog/2025-05-13-top-5-countries-for-affordable-medical-treatments-in-2025/)** means a 10–20x cost advantage on major treatments.
 
 - **World-Class Hospitals:** India has hundreds of internationally accredited hospitals. Over 50 Indian hospitals hold Joint Commission International (JCI) accreditation and 800+ are certified by India’s NABH quality board. Leading hospital chains (Apollo, Fortis, Medanta, etc.) feature cutting-edge technology and modern facilities.
 
@@ -20,13 +20,13 @@ Several factors make India the *best country for medical tourism in 2025*. India
 
 - **No Wait Times:** Unlike many developed countries, India generally offers quick scheduling for urgent procedures. Patients often get appointments and surgery dates within days or a week, even for major operations. Long waiting lists are virtually non-existent, so traveling to India can **save precious time** for life-saving treatments.
 
-- **Tourism and Hospitality:** After treatment, patients can recover in comfortable settings or luxury resorts. India’s rich cultural heritage, spiritual sites and wellness retreats (ayurveda, yoga, spa centers) make recovery more pleasant. Hospitals often provide **[medical tourism packages](https://nirogyatra.com/blog/medical-tourism-packages)** including airport pickup, recovery suites and tour options. English is widely spoken and the travel infrastructure (flights, hotels) is excellent, especially from the GCC, Europe and North America. The Indian government even offers special e-Medical visas (up to 60–90 days) to streamline travel for treatment.
+- **Tourism and Hospitality:** After treatment, patients can recover in comfortable settings or luxury resorts. India’s rich cultural heritage, spiritual sites and wellness retreats (ayurveda, yoga, spa centers) make recovery more pleasant. Hospitals often provide **[medical tourism packages](https://nirogyatra.com/blog/2025-05-13-india-as-a-medical-tourism-hub-what-foreigners-need-to-know/)** including airport pickup, recovery suites and tour options. English is widely spoken and the travel infrastructure (flights, hotels) is excellent, especially from the GCC, Europe and North America. The Indian government even offers special e-Medical visas (up to 60–90 days) to streamline travel for treatment.
 
 ## Affordable Treatment: Costs vs. US/UK
 
 Cost is a primary draw for foreign patients. Popular procedures in India save thousands compared to Western prices:
 
-- **Cardiac Surgery:** A heart bypass or angioplasty can cost $5,000–15,000 in India, versus $100,000+ in the US. In other words, *80–90% savings*. [NirogYatra](https://nirogyatra.com/blog) explains that [India’s top cardiac centers](https://nirogyatra.com/blog/best-cardiac-hospitals-in-india) charge only 10–20% of U.S. fees.
+- **Cardiac Surgery:** A heart bypass or angioplasty can cost $5,000–15,000 in India, versus $100,000+ in the US. In other words, *80–90% savings*. [NirogYatra](https://nirogyatra.com/blog) explains that [India’s top cardiac centers](https://nirogyatra.com/blog) charge only 10–20% of U.S. fees.
 
 - **Orthopedics:** Knee or hip replacement surgeries cost around $6,000–10,000 in India, compared to $50,000+ in the US.
 
