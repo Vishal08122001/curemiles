@@ -1,5 +1,5 @@
 import { getCollection } from 'astro:content';
-import { SITE_TITLE, MEDICAL_SPECIALTIES } from '../consts';
+import { SITE_TITLE, MEDICAL_SPECIALTIES, BRAND_VARIATIONS, SITE_KEYWORDS } from '../consts';
 
 function formatDate(date: Date): string {
     return date.toISOString().split('T')[0];
@@ -18,7 +18,11 @@ function generateUrlEntry(url: string, lastmod: Date, priority: number, changefr
     return `<url><loc>${escapeXml(url)}</loc><lastmod>${formatDate(lastmod)}</lastmod><changefreq>${changefreq}</changefreq><priority>${priority}</priority></url>\n`;
 }
 
-export async function GET({ site }) {
+interface APIContext {
+    site: URL;
+}
+
+export async function GET({ site }: APIContext) {
     if (!site) {
         return new Response('Site configuration is required');
     }
@@ -31,20 +35,40 @@ export async function GET({ site }) {
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
-        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">`;
+        xmlns:news="http://www.google.com/schemas/sitemap-news/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml"
+        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+<!-- ${SITE_TITLE} - Medical Tourism Facilitator -->
+<!-- Also known as: ${BRAND_VARIATIONS.join(', ')} -->
+<!-- Keywords: ${SITE_KEYWORDS.join(', ')} -->`;
 
-    // Add homepage
-    sitemap += generateUrlEntry(site.toString(), now, 1.0, 'daily');
+    // Add homepage with all brand variations in metadata
+    sitemap += `<url>
+        <loc>${site.toString()}</loc>
+        <lastmod>${formatDate(now)}</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>1.0</priority>
+        <news:news>
+            <news:publication>
+                <news:name>${escapeXml(SITE_TITLE)}</news:name>
+                <news:language>en</news:language>
+            </news:publication>
+            <news:title>${escapeXml(SITE_TITLE)}</news:title>
+        </news:news>
+        ${BRAND_VARIATIONS.map(name => 
+            `<xhtml:link rel="alternate" media="alternate name" title="${escapeXml(name)}" href="${site.toString()}"/>`
+        ).join('\n        ')}
+    </url>`;
 
-    // Add main sections
+    // Add main sections with high priority
     const mainSections = [
-        { url: 'treatments', priority: 0.9 },
-        { url: 'hospitals', priority: 0.9 },
-        { url: 'doctors', priority: 0.8 },
-        { url: 'testimonials', priority: 0.8 },
-        { url: 'blog', priority: 0.8 },
-        { url: 'about', priority: 0.7 },
-        { url: 'contact', priority: 0.7 }
+        { url: 'treatments', priority: 0.9, changefreq: 'daily' },
+        { url: 'hospitals', priority: 0.9, changefreq: 'weekly' },
+        { url: 'doctors', priority: 0.8, changefreq: 'weekly' },
+        { url: 'testimonials', priority: 0.8, changefreq: 'weekly' },
+        { url: 'blog', priority: 0.8, changefreq: 'daily' },
+        { url: 'about', priority: 0.7, changefreq: 'monthly' },
+        { url: 'contact', priority: 0.7, changefreq: 'monthly' }
     ];
 
     for (const section of mainSections) {
@@ -52,7 +76,7 @@ export async function GET({ site }) {
             new URL(section.url, site).toString(),
             now,
             section.priority,
-            'weekly'
+            section.changefreq
         );
     }
 

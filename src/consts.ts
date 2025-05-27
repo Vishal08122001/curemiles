@@ -1,11 +1,26 @@
 // Place any global data in this file.
 // You can import this data from anywhere in your site by using the `import` keyword.
 
-export const SITE_TITLE = 'NirogYatra - Medical Tourism in India';
-export const SITE_DESCRIPTION = 'Leading medical tourism facilitator in India. Get world-class cancer treatment, cardiac care, and wellness packages at 60-80% lower costs. Trusted by 50,000+ international patients from Africa, Middle East, and Southeast Asia.';
+export const SITE_TITLE = 'NirogYatra - Your Medical Tourism Partner in India';
+export const SITE_DESCRIPTION = 'NirogYatra (Nirog Yatra) is India\'s leading medical tourism facilitator. Get world-class cancer treatment, cardiac care, and wellness packages at 60-80% lower costs. Trusted by 50,000+ international patients from Africa, Middle East, and Southeast Asia.';
+
+export const BRAND_VARIATIONS = [
+  'NirogYatra',
+  'Nirog Yatra',
+  'nirogyatra',
+  'Nirog-Yatra'
+];
 
 export const SITE_KEYWORDS = [
+  // Brand variations
+  'NirogYatra',
+  'Nirog Yatra',
+  'nirogyatra',
+  // Core services
   'medical tourism india',
+  'healthcare tourism india',
+  'medical treatment abroad',
+  // Treatments
   'cancer treatment india',
   'heart surgery india',
   'cardiac surgery india',
@@ -14,7 +29,15 @@ export const SITE_KEYWORDS = [
   'affordable healthcare india',
   'best hospitals india',
   'medical visa india',
-  'medical packages india'
+  'medical packages india',
+  // Location specific
+  'medical tourism delhi',
+  'medical tourism mumbai',
+  'medical tourism bangalore',
+  // Cost related
+  'affordable surgery india',
+  'low cost medical treatment',
+  'medical tourism packages'
 ];
 
 export const CONTACT_INFO = {
